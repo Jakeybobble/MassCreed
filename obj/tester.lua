@@ -1,14 +1,14 @@
-inherit("dad")
+inherit("Dad")
 
 heck = 1
 
 function class:init()
+    class.super.init(self)
     print("I have been created.")
-    print(self.heck)
-    print(class.name)
 end
 
 function class:update()
     print(self.heck)
     self.heck = self.heck + 1
+    print(parent.name)
 end
