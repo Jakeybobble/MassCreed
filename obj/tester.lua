@@ -3,7 +3,6 @@ inherit("Dad")
 heck = 1
 
 function class:init()
-    class.super.init(self)
     print("I have been created.")
 end
 

@@ -12,23 +12,19 @@ objects = {}
 lib.init = function()
     print("Initializing Jakeylib...")
 
-    lib.init_classes()
-    -- TODO: Use recursion to load parent first.
-    -- And also check that it hasn't been loaded already.
+    lib.register_classes()
 
 end
 
-lib.init_classes = function()
+lib.register_classes = function()
     local res = love.filesystem.getDirectoryItems(obj_path)
 
-    print("--- Initializing classes ---")
+    print("--- Registering classes ---")
     for _, file in pairs(res) do
         local obj = lib.register_class(file)
     end
-    print("--- Instantiating classes ---")
-    for _, thing in pairs(objects) do
-        thing:new()
-    end
+    print("----------------------------")
+
 end
 
 lib.register_class = function(file)
@@ -46,19 +42,21 @@ lib.register_class = function(file)
         parent = p
     end
     
-    -- Creates class and initializes it within its own environment
+    -- Prepare class
     local obj = class(name)
     env.class = obj
     setfenv(chunk, env)
+    -- Fills env with functions/variables
     chunk()
 
     if parent then
         local parent_class = objects[parent] or lib.register_class(string.lower(parent..".lua"))
         obj = parent_class:extend(name)
         env.class = obj
+        chunk()
     end
     
-    -- Adds attributes to object
+    -- Adds attributes to class
     for i,v in pairs(env) do
         if type(v) ~= "function" then
             obj[i] = v
@@ -66,7 +64,6 @@ lib.register_class = function(file)
     end
 
     -- Add obj to table of all classes
-
     local register_string = "Registered class '"..name.."'"
     if parent then
         register_string = register_string.." inherited from "..parent
@@ -76,6 +73,13 @@ lib.register_class = function(file)
     objects[name] = obj
 
     return obj
+end
+
+lib.debug_instantiate_classes = function()
+    print("--- Instantiating classes ---")
+    for _, thing in pairs(objects) do
+        thing:new()
+    end
 end
 
 return lib
