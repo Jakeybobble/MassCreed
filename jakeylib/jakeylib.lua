@@ -9,8 +9,15 @@ local obj_path = "obj/"
 
 objects = {}
 
-lib.init = function()
-    print("Initializing Jakeylib...")
+local logs = false
+
+lib.print = function(str)
+    if logs then print(str) end
+end
+
+lib.init = function(do_logs)
+    lib.print("Initializing Jakeylib...")
+    if do_logs then logs = do_logs end
 
     lib.register_classes()
 
@@ -19,11 +26,11 @@ end
 lib.register_classes = function()
     local res = love.filesystem.getDirectoryItems(obj_path)
 
-    print("--- Registering classes ---")
+    lib.print("--- Registering classes ---")
     for _, file in pairs(res) do
         local obj = lib.register_class(file)
     end
-    print("----------------------------")
+    lib.print("----------------------------")
 
 end
 
@@ -69,14 +76,14 @@ lib.register_class = function(file)
         register_string = register_string.." inherited from "..parent
     end
     
-    print(register_string)
+    lib.print(register_string)
     objects[name] = obj
 
     return obj
 end
 
 lib.debug_instantiate_classes = function()
-    print("--- Instantiating classes ---")
+    lib.print("--- Instantiating classes ---")
     for _, thing in pairs(objects) do
         thing:new()
     end
