@@ -3,17 +3,15 @@ local module = {}
 local class = require("lib/30log")
 local helper = require("jakeylib/helper")
 
-local obj_path = "obj"
+local obj_paths = {"obj", "rooms"}
 
 -- Fill names and paths
 local names_and_paths = {}
 
 module.register_classes = function()
-    local res = love.filesystem.getDirectoryItems(obj_path)
 
     print("--- Registering classes ---")
-
-    names_and_paths = helper.FillFileTree(obj_path)
+    names_and_paths = helper.FillFileTree(obj_paths)
 
     for name, file in pairs(names_and_paths) do
         module.register_class(name)
@@ -22,6 +20,8 @@ module.register_classes = function()
     print("----------------------------")
 
     module.run_post_load()
+
+    module.debug_instantiate_classes()
 
 end
 
@@ -49,23 +49,24 @@ module.register_class = function(name)
     chunk()
 
     if parent_name then
-        local parent_class = classes[parent] or module.register_class(parent_name)
+        local parent_class = classes[parent_name] or module.register_class(parent_name)
         obj = parent_class:extend(name)
+        obj.post_load = parent_class.post_load or nil
         env.class = obj
         chunk()
     end
     
     -- Adds attributes to class
-    for i,v in pairs(env) do
+    for k,v in pairs(env) do
         if type(v) ~= "function" then
-            obj[i] = v
+            obj[k] = v
         end
     end
 
     -- Add obj to table of all classes
     local register_string = "Registered class '"..name.."'"
-    if parent then
-        register_string = register_string.." inherited from "..parent
+    if parent_name then
+        register_string = register_string.." inherited from "..parent_name
     end
     
     print(register_string)

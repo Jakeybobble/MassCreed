@@ -1,0 +1,3 @@
+inherit("Room")
+
+name = "Frick"
