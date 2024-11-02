@@ -20,7 +20,7 @@ module.FillFileTree = function(rootPath, tree)
         local info = love.filesystem.getInfo(file)
         if info then
             if info.type == "file" then
-                local name = module.GetFileNameUpper(v)
+                local name = module.GetFileName(v)
                 if tree[name] ~= nil then error("Class file with non-unique name found.") end
                 tree[name] = file
             elseif info.type == "directory" then
