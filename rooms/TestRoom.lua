@@ -1,3 +1,3 @@
 inherit("Room")
 
-name = "Frick"
+room_name = "TestRoom"

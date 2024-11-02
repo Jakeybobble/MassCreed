@@ -21,7 +21,7 @@ module.register_classes = function()
 
     module.run_post_load()
 
-    module.debug_instantiate_classes()
+    --module.debug_instantiate_classes()
 
 end
 
@@ -78,7 +78,7 @@ end
 module.run_post_load = function()
     for _, obj in pairs(classes) do
         if obj.post_load ~= nil then
-            obj.post_load()
+            obj.post_load(obj)
         end
     end
 end
