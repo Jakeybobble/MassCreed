@@ -21,6 +21,8 @@ module.register_classes = function()
 
     print("----------------------------")
 
+    module.run_post_load()
+
 end
 
 module.register_class = function(name)
@@ -70,6 +72,14 @@ module.register_class = function(name)
     classes[name] = obj
 
     return obj
+end
+
+module.run_post_load = function()
+    for _, obj in pairs(classes) do
+        if obj.post_load ~= nil then
+            obj.post_load()
+        end
+    end
 end
 
 module.debug_instantiate_classes = function()
