@@ -3,22 +3,28 @@ local module = {}
 local class = require("lib/30log")
 local helper = require("jakeylib/helper")
 
-local obj_path = "obj/"
+local obj_path = "obj"
+
+-- Fill names and paths
+local names_and_paths = {}
 
 module.register_classes = function()
     local res = love.filesystem.getDirectoryItems(obj_path)
 
     print("--- Registering classes ---")
-    for _, file in pairs(res) do
-        local obj = module.register_class(file)
+
+    names_and_paths = helper.FillFileTree(obj_path)
+
+    for name, file in pairs(names_and_paths) do
+        module.register_class(name)
     end
+
     print("----------------------------")
 
 end
 
-module.register_class = function(file) -- TODO: Work with paths instead to allow folder recursion
-    local name = helper.FirstToUpper(helper.GetFileName(file))
-    local path = obj_path..file
+module.register_class = function(name)
+    local path = names_and_paths[name]
 
     if classes[name] then return classes[name] end
 
@@ -26,20 +32,22 @@ module.register_class = function(file) -- TODO: Work with paths instead to allow
     local env = {}
     setmetatable(env, {__index = _G })
 
-    local parent = nil
+    -- Inheritance
+    local parent_name = nil
     env.inherit = function(p)
-        parent = p
+        parent_name = p
     end
     
     -- Prepare class
     local obj = class(name)
     env.class = obj
+
+    -- Run file in its own environment
     setfenv(chunk, env)
-    -- Fills env with functions/variables
     chunk()
 
-    if parent then
-        local parent_class = classes[parent] or module.register_class(string.lower(parent..".lua"))
+    if parent_name then
+        local parent_class = classes[parent] or module.register_class(parent_name)
         obj = parent_class:extend(name)
         env.class = obj
         chunk()
