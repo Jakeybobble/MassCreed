@@ -34,7 +34,7 @@ lib.register_classes = function()
 
 end
 
-lib.register_class = function(file)
+lib.register_class = function(file) -- TODO: Work with paths instead to allow folder recursion
     local name = helper.FirstToUpper(helper.GetFileName(file))
     local path = obj_path..file
 
