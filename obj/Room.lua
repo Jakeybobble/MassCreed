@@ -1,9 +1,12 @@
-room_name = "Darn"
+room_name = nil
 
 function class.post_load(class)
-    global_rooms[class.room_name] = class
+    if class.room_name then
+        global_rooms[class.room_name] = class
+    end
 end
 
+-- When room is created
 function class:init()
     
 end
