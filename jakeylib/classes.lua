@@ -8,7 +8,7 @@ local obj_paths = {"obj", "rooms"}
 -- Fill names and paths
 local names_and_paths = {}
 
-module.register_classes = function()
+function module.register_classes()
 
     print("--- Registering classes ---")
     names_and_paths = helper.FillFileTree(obj_paths)
@@ -25,7 +25,7 @@ module.register_classes = function()
 
 end
 
-module.register_class = function(name)
+function module.register_class(name)
     local path = names_and_paths[name]
 
     if classes[name] then return classes[name] end
@@ -75,7 +75,7 @@ module.register_class = function(name)
     return obj
 end
 
-module.run_post_load = function()
+function module.run_post_load()
     for _, obj in pairs(classes) do
         if obj.post_load ~= nil then
             obj.post_load(obj)
@@ -83,7 +83,7 @@ module.run_post_load = function()
     end
 end
 
-module.debug_instantiate_classes = function()
+function module.debug_instantiate_classes()
     print("--- Instantiating classes ---")
     for _, thing in pairs(classes) do
         thing:new()

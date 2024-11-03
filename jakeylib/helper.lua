@@ -1,18 +1,10 @@
 local module = {}
 
-module.GetFileName = function(url)
+function module.GetFileName(url)
     return url:match("(.+)%..+")
 end
 
-module.FirstToUpper = function(str)
-    return (str:gsub("^%l", string.upper))
-end
-
-module.GetFileNameUpper = function(name)
-    return module.FirstToUpper(module.GetFileName(name))
-end
-
-module.FillFileTree = function(rootPaths, tree)
+function module.FillFileTree(rootPaths, tree)
     tree = tree or {}
     for _, rootPath in pairs(rootPaths) do
         local filesTable = love.filesystem.getDirectoryItems(rootPath)
