@@ -2,8 +2,12 @@ local init = require("init_libraries") -- Initiaizes pretty much everything... I
 local game = require("game/game")
 
 function love.load()
+    
+    love.graphics.setDefaultFilter("nearest", "nearest", 1)
+
     init.init()
     game.load()
+
 end
 
 function love.draw()
