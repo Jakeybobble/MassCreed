@@ -6,7 +6,14 @@ function class.post_load(class)
     end
 end
 
+objects = {}
+
 -- When room is created
 function class:init()
     
+end
+
+-- Clean resources
+function class:clean()
+    objects = {}
 end
