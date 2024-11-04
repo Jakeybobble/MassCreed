@@ -15,11 +15,14 @@ function game.draw()
     -- Draw everything in the camera view
     if current_camera then current_camera:draw(game.draw_world) end
     -- Draw anything above that, like GUI
-    --love.graphics.print("Game is running.")
+
+
 end
 
 function game.draw_world()
-    love.graphics.print("Darn.")
+    if current_room then
+        current_room:draw()
+    end
 end
 
 function game.update(dt)

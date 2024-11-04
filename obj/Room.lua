@@ -13,6 +13,10 @@ function class:init()
     
 end
 
+function class:draw()
+    
+end
+
 -- Clean resources
 function class:clean()
     objects = {}
