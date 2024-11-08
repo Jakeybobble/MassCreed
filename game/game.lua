@@ -26,6 +26,11 @@ function game.draw_world()
 end
 
 function game.update(dt)
+
+    if current_room then
+        current_room:update(dt)
+    end
+
     if current_camera then
         current_camera:update(dt)
     end
