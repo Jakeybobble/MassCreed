@@ -6,7 +6,7 @@ heck = 1
 
 -- The created 30log class is created and then passed over for use in this file :-)
 function class:init()
-    self.super:init()
+    self.super.init(self)
     print(self.name.." has been instantiated!")
 end
 

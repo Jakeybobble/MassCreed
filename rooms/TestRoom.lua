@@ -3,9 +3,9 @@ inherit("Room")
 room_name = "TestRoom"
 
 function class:init()
-     self.super:init()
+     self.super.init(self)
 
-     local new_obj = classes["TestWorm"]:new()
+     local new_obj = classes.TestWorm:new(100, 100)
      table.insert(self.objects, new_obj)
 
 end
