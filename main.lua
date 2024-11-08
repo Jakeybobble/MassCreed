@@ -18,3 +18,11 @@ end
 function love.update(dt)
     game.update(dt)
 end
+
+function love.keypressed(key)
+    if key == "r" then
+        if current_room ~= nil then
+            current_room = classes.TestRoom:new()
+        end
+    end
+ end
