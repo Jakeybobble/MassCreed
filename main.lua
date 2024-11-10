@@ -1,5 +1,5 @@
 local init = require("init_libraries") -- Initiaizes pretty much everything... I hope
-local game = require("game/game")
+game = require("game/game")
 
 function love.load()
     
