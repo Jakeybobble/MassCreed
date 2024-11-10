@@ -22,6 +22,7 @@ function module.register_classes()
     module.run_post_load()
 
     --module.debug_instantiate_classes()
+    --module.print_class_names()
 
 end
 
@@ -88,6 +89,15 @@ function module.debug_instantiate_classes()
     for _, thing in pairs(classes) do
         thing:new()
     end
+end
+
+function module.print_class_names()
+    print("All classes:")
+    local names = {}
+    for k, v in pairs(classes) do
+        table.insert(names, v.name)
+    end
+    print(table.concat(names, ", "))
 end
 
 return module
