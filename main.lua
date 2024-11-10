@@ -1,54 +1,45 @@
 local init = require("init_libraries") -- Initiaizes pretty much everything... I hope
-game = nil
-room_editor = nil
+current_view = nil
 
 global_rooms = {}
 
 function love.load()
     
     love.graphics.setDefaultFilter("nearest", "nearest", 1)
-
     init.init()
 
-    -- Load game
-    game = require("game/game")
-    game.load()
+    current_view = classes.Game:new()
 
 end
 
 function love.draw()
     --love.graphics.print("Hello dang world!")
-    if game then
-        game.draw()
-    elseif room_editor then -- TODO: Turn both game and room_editor into separate classes inhereting a view? I really dislike how repetitive this is...
-        room_editor.draw()
+    if current_view then
+        current_view:draw()
     end
     
 end
 
 function love.update(dt)
-    if game then
-        game.update(dt)
-    elseif room_editor then
-        room_editor.update(dt)
+    if current_view then
+        current_view:update(dt)
     end
 end
 
 function love.keypressed(key)
-    if key == "r" then
-        if current_room ~= nil then
-            current_room = classes.TestRoom:new()
+    if key == "p" then
+        if current_view.name == "Game" then
+            print("Entered Game View")
+            current_view = classes.Editor:new()
+        elseif current_view.name == "Editor" then
+            print("Entered Editor View")
+            current_view = classes.Game:new()
         end
-    elseif key == "p" then
-        if game then
-            room_editor = require("jakeylib/roomeditor/editor")
-            room_editor.load()
-            game = nil
+        do return end
+    end
+    
 
-        else
-            game = require("game/game")
-            game.load()
-            room_editor = nil
-        end
+    if current_view then
+        current_view:keypressed(key)
     end
  end
