@@ -8,15 +8,24 @@ function love.load()
     init.init()
     game.load()
 
+    print(game.current_camera)
+
+    
+
 end
 
 function love.draw()
     --love.graphics.print("Hello dang world!")
-    game.draw()
+    if game then
+        game.draw()
+    end
+    
 end
 
 function love.update(dt)
-    game.update(dt)
+    if game then
+        game.update(dt)
+    end
 end
 
 function love.keypressed(key)
@@ -24,5 +33,7 @@ function love.keypressed(key)
         if current_room ~= nil then
             current_room = classes.TestRoom:new()
         end
+    elseif key == "p" then
+        game = nil
     end
  end
