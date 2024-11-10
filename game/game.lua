@@ -1,6 +1,5 @@
 local game = {}
 
-global_rooms = {}
 game.current_room = nil
 
 game.current_camera = nil
