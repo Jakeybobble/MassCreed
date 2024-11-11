@@ -9,7 +9,7 @@ function class:init(x, y, rot, depth)
 end
 
 function class:update(dt)
-    class.super:update(dt)
+    class.super.update(self, dt)
     self.increment = self.increment + 1 * dt
     self.draw_x = self.x + math.sin(self.increment) * 25
 

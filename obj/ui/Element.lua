@@ -1,3 +1,5 @@
+-- Element.lua: The base element of any UI element
+
 function class:init(elements, x, y, width, height)
     self.elements = elements or {}
     self.parent = nil
@@ -5,9 +7,6 @@ function class:init(elements, x, y, width, height)
     self.width, self.height = width or 0, height or 0
 
     self.depth = 0
-    if self.parent ~= nil then
-        self.depth = self.parent.depth + 1
-    end
 
     self.visible = true
     self.debug_visible = false
@@ -16,29 +15,27 @@ function class:init(elements, x, y, width, height)
         v.parent = self
     end
 
-    -- The drawing function
-    self.draw = nil
+end
 
-    self.on_draw = function()
+class.draw = nil
+
+function class:on_draw()
         
-        if not self.visible then do return end end
+    if not self.visible then do return end end
 
-        love.graphics.push()
-        love.graphics.translate(self.x, self.y)
+    love.graphics.push()
+    love.graphics.translate(self.x, self.y)
 
-        if self.draw ~= nil then self.draw() end
+    if self.draw ~= nil then self:draw() end
 
-        for k, v in pairs(self.elements) do
-            v.on_draw()
-        end
-        -- Debug draw
-        if debug_visible then
-            love.graphics.setColor(1, 0, 0, 0.05)
-            love.graphics.rectangle("fill", 0, 0, self.width, self.height)
-            love.graphics.setColor(1, 1, 1, 1)
-        end
-        
-        love.graphics.pop()
+    for k, v in pairs(self.elements) do
+        v:on_draw()
     end
-
+    -- Debug draw
+    love.graphics.setColor(1, 0, 0, 0.1)
+    love.graphics.rectangle("fill", 0, 0, self.width, self.height)
+    love.graphics.setColor(1, 1, 1, 1)
+    love.graphics.print(self.depth, 0, 12)
+    
+    love.graphics.pop()
 end
