@@ -1,14 +1,14 @@
 inherit("GameView")
 
 function class:init()
-
+    self.element = classes.Element:new({
+        classes.Element:new()
+    })
 end
 
 function class:draw()
     love.graphics.print("Welcome to the (in its current state) editor view.")
-end
-
-function class:draw_world()
+    self.element.on_draw()
 
 end
 
