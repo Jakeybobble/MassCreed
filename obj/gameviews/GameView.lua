@@ -15,3 +15,7 @@ end
 function class:keypressed(key)
 
 end
+
+function class:mousepressed(x, y, button, istouch)
+    
+end

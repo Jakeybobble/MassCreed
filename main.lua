@@ -43,3 +43,9 @@ function love.keypressed(key)
         current_view:keypressed(key)
     end
  end
+
+ function love.mousepressed(x, y, button, istouch)
+    if current_view then
+        current_view:mousepressed(x, y, button, istouch)
+    end
+ end

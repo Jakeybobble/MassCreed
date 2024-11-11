@@ -16,3 +16,7 @@ end
 function class:update(dt)
 
 end
+
+function class:mousepressed(x, y, button, istouch)
+    
+end
