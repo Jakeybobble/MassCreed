@@ -1,11 +1,15 @@
 -- Element.lua: The base element of any UI element
 
-function class:init(elements, x, y, width, height)
+function class:init(options, elements)
+    
+    options = options or {}
+
     self.elements = elements or {}
     self.parent = nil
-    self.x, self.y = x or 0, y or 0
-    self.width, self.height = width or 0, height or 0
+    self.x, self.y = options.x or 0, options.y or 0
+    self.width, self.height = options.width or 0, options.height or 0
 
+    self.frontable = options.frontable or false
     self.depth = 0
 
     self.visible = true
@@ -14,6 +18,10 @@ function class:init(elements, x, y, width, height)
     for k, v in pairs(self.elements) do
         v.parent = self
     end
+
+    self.global_x, self.global_y = 0, 0
+
+    self.r, self.g, self.b = love.math.random(), love.math.random(), love.math.random()
 
 end
 
@@ -25,17 +33,20 @@ function class:on_draw()
 
     love.graphics.push()
     love.graphics.translate(self.x, self.y)
+    self.global_x, self.global_y = love.graphics.transformPoint(0,0)
+
+    -- Debug draw
+    love.graphics.setColor(self.r, self.g, self.b, 1)
+    love.graphics.rectangle("fill", 0, 0, self.width, self.height)
+    love.graphics.setColor(1, 1, 1, 1)
 
     if self.draw ~= nil then self:draw() end
 
     for k, v in pairs(self.elements) do
         v:on_draw()
     end
-    -- Debug draw
-    love.graphics.setColor(1, 0, 0, 0.1)
-    love.graphics.rectangle("fill", 0, 0, self.width, self.height)
-    love.graphics.setColor(1, 1, 1, 1)
-    love.graphics.print(self.depth, 0, 12)
     
     love.graphics.pop()
 end
+
+class.click = nil
