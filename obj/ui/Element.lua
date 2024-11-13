@@ -13,7 +13,7 @@ function class:init(options, elements)
     self.depth = 0
 
     self.visible = true
-    self.debug_visible = false
+    self.debug_visible = true
 
     for k, v in pairs(self.elements) do
         v.parent = self
@@ -35,10 +35,11 @@ function class:on_draw()
     love.graphics.translate(self.x, self.y)
     self.global_x, self.global_y = love.graphics.transformPoint(0,0)
 
-    -- Debug draw
-    love.graphics.setColor(self.r, self.g, self.b, 1)
-    love.graphics.rectangle("fill", 0, 0, self.width, self.height)
-    love.graphics.setColor(1, 1, 1, 1)
+    if self.debug_visible then
+        love.graphics.setColor(self.r, self.g, self.b, 1)
+        love.graphics.rectangle("fill", 0, 0, self.width, self.height)
+        love.graphics.setColor(1, 1, 1, 1)
+    end
 
     if self.draw ~= nil then self:draw() end
 
@@ -47,6 +48,10 @@ function class:on_draw()
     end
     
     love.graphics.pop()
+end
+
+function class:resize(w, h)
+    self.width, self.height = w, h
 end
 
 class.click = nil

@@ -19,3 +19,7 @@ end
 function class:mousepressed(x, y, button, istouch)
     
 end
+
+function class:resize(w, h)
+    
+end

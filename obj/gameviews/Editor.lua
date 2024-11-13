@@ -2,6 +2,7 @@ inherit("GameView")
 local gui_handler = require("jakeylib/gui_handler")
 
 function class:init()
+    --[[ Older stuff for reference...
     self.element = classes.Element:new({x = 50, y = 50, frontable = true },
     {
         classes.Hoverable:new({x = 50, y = 0, width = 200, height = 80 }),
@@ -10,6 +11,9 @@ function class:init()
             classes.Button:new({x = 20, y = 20, width=60, height=30})
         })
     })
+    ]]--
+    local w, h = love.window.getMode()
+    self.element = classes.Element:new({width=w, height=h})
 end
 
 function class:draw()
@@ -25,4 +29,8 @@ end
 function class:mousepressed(x, y, button, istouch)
     gui_handler.handle_click(self.element)
     --print(gui_handler.mouse_inside(self.element.elements[1]))
+end
+
+function class:resize(w, h)
+    self.element:resize(w,h)
 end
