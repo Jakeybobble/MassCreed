@@ -23,6 +23,6 @@ function class:update(dt)
 end
 
 function class:mousepressed(x, y, button, istouch)
-    gui_handler.loopthing(self.element)
+    gui_handler.handle_click(self.element)
     --print(gui_handler.mouse_inside(self.element.elements[1]))
 end

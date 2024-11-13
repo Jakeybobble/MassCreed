@@ -10,7 +10,7 @@ function module.mouse_inside(element)
     return false
 end
 
-function module.loopthing(element)
+function module.handle_click(element)
     --print(element.class.name)
 
     for i = #element.elements, 1, -1 do
@@ -27,7 +27,7 @@ function module.loopthing(element)
                 break
             end
 
-            module.loopthing(child)
+            module.handle_click(child)
             
             break
         end
