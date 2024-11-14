@@ -38,6 +38,8 @@ function class:on_draw()
     local x, y = self.x, self.y
     if self.align == "horizontal" then
         x = self.x + self.order * self.parent.child_width
+    elseif self.align == "vertical" then
+        y = self.y + self.order * self.parent.child_width
     end
 
     love.graphics.translate(x, y)
