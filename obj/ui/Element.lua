@@ -36,11 +36,14 @@ function class:on_draw()
 
     love.graphics.push()
     local x, y = self.x, self.y
+
+    --[[ Doesn't really make sense now that I think about it
     if self.align == "horizontal" then
         x = self.x + self.order * self.parent.child_width
     elseif self.align == "vertical" then
         y = self.y + self.order * self.parent.child_width
     end
+     ]]--
 
     love.graphics.translate(x, y)
     self.global_x, self.global_y = love.graphics.transformPoint(0,0)
