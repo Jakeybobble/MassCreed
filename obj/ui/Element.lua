@@ -58,4 +58,4 @@ function class:resize(w, h)
     self.width, self.height = w, h
 end
 
-class.on_click = nil
+class.on_click = nil -- If an element should be able to be clickable without being a button, this should be changed.
