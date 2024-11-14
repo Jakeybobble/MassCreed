@@ -9,7 +9,9 @@ function class:init()
         classes.ElementList:new({width = 64, height = 500, orientation="vertical"}, {
             classes.ColorButton:new({width = 64, height = 64, color={0.5, 0.5, 0.5}}),
             classes.ColorButton:new({width = 64, height = 64, color={0.5, 0.5, 0.5}}),
-            classes.ColorButton:new({width = 64, height = 64, color={0.5, 0.5, 0.5}})
+            classes.ColorButton:new({width = 64, height = 64, color={0.5, 0.5, 0.5}, click = function()
+                print("Ok.")
+            end})
         }),
 
         classes.ElementList:new({x = 128, width = 500, height = 64, orientation="horizontal"}, {
@@ -23,7 +25,7 @@ function class:init()
             classes.ColorButton:new({height = 64, color={0.5, 0.5, 0.5}}),
             classes.ColorButton:new({height = 64, color={0.5, 0.5, 0.5}})
         }),
-        
+
         classes.ElementList:new({y = 64*4, width = 64, height = 64*5, orientation="vertical", mode="fit"}, {
             classes.ColorButton:new({width = 64, color={0.5, 0.5, 0.5}}),
             classes.ColorButton:new({width = 64, color={0.5, 0.5, 0.5}}),

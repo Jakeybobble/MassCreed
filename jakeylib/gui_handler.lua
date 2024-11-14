@@ -22,8 +22,8 @@ function module.handle_click(element)
                 element.elements[#element.elements], element.elements[i]
             end
 
-            if child.click then
-                child:click()
+            if child.on_click then
+                child:on_click()
                 break
             end
 

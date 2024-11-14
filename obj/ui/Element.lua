@@ -23,6 +23,8 @@ function class:init(options, elements)
 
     self.r, self.g, self.b = love.math.random(), love.math.random(), love.math.random()
 
+    self.click = options.click or nil
+
 end
 
 class.draw = nil
@@ -56,4 +58,4 @@ function class:resize(w, h)
     self.width, self.height = w, h
 end
 
-class.click = nil
+class.on_click = nil

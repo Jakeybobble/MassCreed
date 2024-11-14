@@ -41,6 +41,8 @@ function class:draw()
 
 end
 
-function class:click()
+function class:on_click()
+    class.super.on_click(self)
+    
     self.shrink = 8
 end
