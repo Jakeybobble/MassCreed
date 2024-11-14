@@ -23,7 +23,7 @@ function module.handle_click(element)
             end
 
             if child.click then
-                child.click()
+                child:click()
                 break
             end
 

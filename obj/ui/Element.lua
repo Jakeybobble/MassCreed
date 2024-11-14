@@ -13,7 +13,7 @@ function class:init(options, elements)
     self.depth = 0
 
     self.visible = true
-    self.debug_visible = true
+    self.debug_visible = false
 
     for k, v in pairs(self.elements) do
         v.parent = self

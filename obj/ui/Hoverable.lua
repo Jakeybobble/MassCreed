@@ -1,7 +1,7 @@
 inherit("Element")
 
 function class:init(options, elements)
-    self.super.init(self, options, elements)
+    class.super.init(self, options, elements)
 
     self.debug_visible = true
 

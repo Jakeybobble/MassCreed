@@ -13,11 +13,12 @@ function class:init()
     })
     ]]--
     local w, h = love.window.getMode()
-    self.element = classes.Element:new({width=w, height=h})
+    self.element = classes.Element:new({x = 16, y = 16, width=w, height=h}, {
+        classes.ColorButton:new({width = 64, height = 64, color={0.5, 0.5, 0.5}})
+    })
 end
 
 function class:draw()
-    love.graphics.print("Welcome to the (in its current state) editor view.")
     self.element:on_draw()
 
 end
