@@ -23,6 +23,9 @@ function class:init(options, elements)
 
     self.r, self.g, self.b = love.math.random(), love.math.random(), love.math.random()
 
+    self.align = nil
+    self.order = 0
+
 end
 
 class.draw = nil
@@ -32,7 +35,12 @@ function class:on_draw()
     if not self.visible then do return end end
 
     love.graphics.push()
-    love.graphics.translate(self.x, self.y)
+    local x, y = self.x, self.y
+    if self.align == "horizontal" then
+        x = self.x + self.order * self.parent.child_width
+    end
+
+    love.graphics.translate(x, y)
     self.global_x, self.global_y = love.graphics.transformPoint(0,0)
 
     if self.debug_visible then

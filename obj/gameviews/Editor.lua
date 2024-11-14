@@ -14,7 +14,12 @@ function class:init()
     ]]--
     local w, h = love.window.getMode()
     self.element = classes.Element:new({x = 16, y = 16, width=w, height=h}, {
-        classes.ColorButton:new({width = 64, height = 64, color={0.5, 0.5, 0.5}})
+        classes.ElementList:new({width=200}, {
+            classes.ColorButton:new({width = 64, height = 64, color={0.5, 0.5, 0.5}}),
+            classes.ColorButton:new({width = 64, height = 64, color={0.5, 0.5, 0.5}}),
+            classes.ColorButton:new({width = 64, height = 64, color={0.5, 0.5, 0.5}})
+        })
+        
     })
 end
 
