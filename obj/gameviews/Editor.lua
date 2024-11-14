@@ -2,16 +2,7 @@ inherit("GameView")
 local gui_handler = require("jakeylib/gui_handler")
 
 function class:init()
-    --[[ Older stuff for reference...
-    self.element = classes.Element:new({x = 50, y = 50, frontable = true },
-    {
-        classes.Hoverable:new({x = 50, y = 0, width = 200, height = 80 }),
-        classes.Hoverable:new({x = 100, y = 50, width = 200, height = 80 },
-        {
-            classes.Button:new({x = 20, y = 20, width=60, height=30})
-        })
-    })
-    ]]--
+    
     local w, h = love.window.getMode()
     self.element = classes.Element:new({x = 16, y = 16, width=w, height=h}, {
         classes.ElementList:new({height=200, orientation="vertical"}, {
