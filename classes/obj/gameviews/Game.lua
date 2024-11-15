@@ -30,7 +30,7 @@ end
 function class:keypressed(key)
     if key == "r" then
         if self.current_room ~= nil then
-            self.current_room = classes.TestRoom:new()
+            self.current_room = rooms.TestRoom:new()
         end
     end
 end

@@ -5,14 +5,16 @@ local lib = {}
 local class = require("lib/30log")
 local helper, jakeyclasses = require("jakeylib/helper"), require("jakeylib/classes")
 
-classes = {}
-
 -- Initializes Jakeylib.\
--- Args: String names of folders which to add classes from, i.e. "rooms", "obj"...
+-- Args: {classes_path, classes_table}...\
+-- Example:
+-- ```Lua
+-- jakeylib.init({"classes/obj", classes}, {"classes/rooms"}, rooms)
+-- ```
 lib.init = function(...)
     print("Initializing Jakeylib...")
-    jakeyclasses.register_classes({...})
-
+    jakeyclasses.register_classes(...)
+    -- TODO: Asserts
 end
 
 return lib
