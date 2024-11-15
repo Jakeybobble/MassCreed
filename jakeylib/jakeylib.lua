@@ -3,7 +3,7 @@
 
 local lib = {}
 local class = require("lib/30log")
-local helper, jakeyclasses = require("jakeylib/helper"), require("jakeylib/classes")
+local jakeyclasses = require("jakeylib/classes")
 
 -- Initializes Jakeylib.\
 -- Args: {classes_path, classes_table}...\

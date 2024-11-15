@@ -1,7 +1,6 @@
 local module = {}
 
 local class = require("lib/30log")
-local helper = require("jakeylib/helper")
 
 -- Fill names and paths
 local trees = {}
@@ -15,7 +14,7 @@ function module.register_classes(...)
     for k, v in pairs(args) do
         local class_path, class_table = v[1], v[2]
         table.insert(class_tables, class_table)
-        local t = helper.FillFileTree({class_path}) -- TODO: Clean off those parenthesis...
+        local t = module.FillFileTree(class_path)
         -- t: {name = file_path}
         -- i.e: table = {"box" = "classes/obj/box.lua", "thing" = "classes/obj/thing.lua"}
         for name, file in pairs(t) do
@@ -87,7 +86,7 @@ function module.register_class(name)
 end
 
 function module.run_post_load()
-    
+
     for _,v in pairs(class_tables) do
         for _,obj in pairs(v) do
             if obj.post_load ~= nil then
@@ -104,6 +103,31 @@ function module.print_class_names()
         table.insert(names, k)
     end
     print(table.concat(names, ", "))
+end
+
+-- Helper functions
+
+function module.GetFileName(url)
+    return url:match("(.+)%..+")
+end
+
+function module.FillFileTree(rootPath, tree)
+    tree = tree or {}
+    local filesTable = love.filesystem.getDirectoryItems(rootPath)
+    for i, v in ipairs(filesTable) do
+        local file = rootPath.."/"..v
+        local info = love.filesystem.getInfo(file)
+        if info then
+            if info.type == "file" then
+                local name = module.GetFileName(v)
+                if tree[name] ~= nil then error("Class file with non-unique name found.") end
+                tree[name] = file
+            elseif info.type == "directory" then
+                tree = module.FillFileTree(file, tree)
+            end
+        end
+    end
+    return tree
 end
 
 return module
