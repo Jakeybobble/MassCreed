@@ -4,8 +4,8 @@ local class = require("lib/30log")
 local helper = require("jakeylib/helper")
 
 -- Fill names and paths
-local names_and_paths = {}
 local trees = {}
+local class_tables = {}
 
 function module.register_classes(...)
     print("--- Registering classes ---")
@@ -14,7 +14,7 @@ function module.register_classes(...)
 
     for k, v in pairs(args) do
         local class_path, class_table = v[1], v[2]
-        --print(class_path, class_table)
+        table.insert(class_tables, class_table)
         local t = helper.FillFileTree({class_path}) -- TODO: Clean off those parenthesis...
         -- t: {name = file_path}
         -- i.e: table = {"box" = "classes/obj/box.lua", "thing" = "classes/obj/thing.lua"}
@@ -31,15 +31,11 @@ function module.register_classes(...)
     print("----------------------------")
 
     module.run_post_load()
-
-    -- These do currently not work.
-    --module.debug_instantiate_classes()
     --module.print_class_names()
 
 end
 
 function module.register_class(name)
-    --local path = names_and_paths[name]
     local path = trees[name].file_path
     local class_table = trees[name].class_table
 
@@ -91,9 +87,9 @@ function module.register_class(name)
 end
 
 function module.run_post_load()
-    for k, v in pairs(trees) do
-        local class_table = v.class_table
-        for _, obj in pairs(class_table) do
+    
+    for _,v in pairs(class_tables) do
+        for _,obj in pairs(v) do
             if obj.post_load ~= nil then
                 obj.post_load(obj)
             end
@@ -101,18 +97,11 @@ function module.run_post_load()
     end
 end
 
-function module.debug_instantiate_classes() -- TODO: Update me!
-    print("--- Instantiating classes ---")
-    for _, thing in pairs(classes) do
-        thing:new()
-    end
-end
-
-function module.print_class_names() -- TODO: Update me!
+function module.print_class_names()
     print("All classes:")
     local names = {}
-    for k, v in pairs(classes) do
-        table.insert(names, v.name)
+    for k, v in pairs(trees) do
+        table.insert(names, k)
     end
     print(table.concat(names, ", "))
 end
