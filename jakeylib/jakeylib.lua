@@ -7,10 +7,11 @@ local helper, jakeyclasses = require("jakeylib/helper"), require("jakeylib/class
 
 classes = {}
 
-lib.init = function()
+-- Initializes Jakeylib.\
+-- Args: String names of folders which to add classes from, i.e. "rooms", "obj"...
+lib.init = function(...)
     print("Initializing Jakeylib...")
-
-    jakeyclasses.register_classes()
+    jakeyclasses.register_classes({...})
 
 end
 

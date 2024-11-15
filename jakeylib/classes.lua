@@ -3,15 +3,12 @@ local module = {}
 local class = require("lib/30log")
 local helper = require("jakeylib/helper")
 
-local obj_paths = {"obj", "rooms"}
-
 -- Fill names and paths
 local names_and_paths = {}
 
-function module.register_classes()
-
+function module.register_classes(...)
     print("--- Registering classes ---")
-    names_and_paths = helper.FillFileTree(obj_paths)
+    names_and_paths = helper.FillFileTree(...)
 
     for name, file in pairs(names_and_paths) do
         module.register_class(name)

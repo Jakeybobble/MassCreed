@@ -7,6 +7,7 @@ function love.load()
     
     love.graphics.setDefaultFilter("nearest", "nearest", 1)
     init.init()
+    print(arg[1])
 
     current_view = classes.Game:new()
 
