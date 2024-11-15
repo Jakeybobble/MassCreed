@@ -4,7 +4,7 @@ local gui_handler = require("jakeylib/gui_handler")
 function class:init()
 
     local w, h = love.window.getMode()
-    self.element = classes.Element:new({x = 16, y = 16, width=w, height=h}, {
+    self.element = classes.Element:new({width=w, height=h}, {
 
         classes.ElementList:new({width = 64, height = 500, orientation="vertical"}, {
             classes.ColorButton:new({width = 64, height = 64, color={0.5, 0.5, 0.5}}),

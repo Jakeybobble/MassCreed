@@ -16,10 +16,6 @@ function class:init(options, elements)
         self.child_width = self.height / #self.elements
     end
 
-    self.debug_visible = true
-
-
-
     self:refresh()
 
 end
