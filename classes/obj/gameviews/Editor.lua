@@ -10,8 +10,8 @@ function class:init()
             ui.ColorButton:new({width = 64, height = 64, color={0.5, 0.5, 0.5}}),
             ui.ColorButton:new({width = 64, height = 64, color={0.5, 0.5, 0.5}}),
             ui.ColorButton:new({width = 64, height = 64, color={0.5, 0.5, 0.5}, click = function(obj)
-                print("Ok.")
-                obj.width = obj.width + 5
+                obj.height = obj.height + 5
+                obj.parent:refresh()
             end})
         }),
 
