@@ -26,6 +26,8 @@ function class:init(options, elements)
 
     self.click = options.click or nil
 
+    self.margins = options.margins or {0}
+
     -- TODO: bool variable for keeping element inside its parent
 
 end
@@ -36,18 +38,23 @@ function class:on_draw()
         
     if not self.visible then do return end end
 
-    love.graphics.push()
-    local x, y = self.x, self.y
+    local margin = self.margins[1] -- TODO: Add margins for different sides
 
-    self.width = (self.inherit_size == "width" or self.inherit_size == "both") and self.parent.width or self.width
-    self.height = (self.inherit_size == "height" or self.inherit_size == "both") and self.parent.height or self.height
+    love.graphics.push()
+    local x, y = self.x + margin, self.y + margin
+
+    -- X/Y is subtracted from the width/height to allow lists to fill the rest
+    self.width = ((self.inherit_size == "width" or self.inherit_size == "both") and self.parent.width - self.x or self.width)
+    self.height = ((self.inherit_size == "height" or self.inherit_size == "both") and self.parent.height - self.y or self.height)
+
+    local width, height = self.width - margin*2, self.height - margin*2
 
     love.graphics.translate(x, y)
     self.global_x, self.global_y = love.graphics.transformPoint(0,0)
 
     if self.color then
         love.graphics.setColor(self.color[1], self.color[2], self.color[3], self.color[4] or 1)
-        love.graphics.rectangle("fill", 0, 0, self.width, self.height)
+        love.graphics.rectangle("fill", 0, 0, width, height)
         love.graphics.setColor(1, 1, 1, 1)
     end
 

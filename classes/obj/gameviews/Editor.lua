@@ -7,8 +7,9 @@ function class:init()
     self.element = ui.Element:new({width=w, height=h}, {
         -- Layers panel
         ui.Panel:new({width=200, height=300}, {
-            ui.ElementList:new({inherit_size = "both", orientation = "vertical", color={1, 1, 1, 0.5}}, {
-                ui.Panel:new({})
+            ui.ElementList:new({inherit_size = "both", orientation = "vertical"}, {
+                ui.Panel:new({inherit_size = "width", height = 50, text = "Layers"}),
+                ui.ElementList:new({inherit_size = "both", orientation = "vertical", color = {1, 1, 1}, margins={6}})
             })
         })
         
