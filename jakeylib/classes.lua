@@ -46,7 +46,7 @@ function module.register_class(name)
 
     -- Inheritance
     local parent_name = nil
-    env.inherit = function(p)
+    env.inherit = function(p) -- TODO: Add argument for from what table to grab class from, or same as parent as default
         parent_name = p
     end
     

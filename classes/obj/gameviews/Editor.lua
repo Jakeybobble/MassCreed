@@ -5,36 +5,13 @@ function class:init()
 
     local w, h = love.window.getMode()
     self.element = ui.Element:new({width=w, height=h}, {
-
-        ui.ElementList:new({width = 64, height = 500, orientation="vertical"}, {
-            ui.ColorButton:new({width = 64, height = 64, color={0.5, 0.5, 0.5}}),
-            ui.ColorButton:new({width = 64, height = 64, color={0.5, 0.5, 0.5}, click = function(obj)
-                obj.height = obj.height + 5
-                obj.parent:refresh()
-            end}),
-            ui.ColorButton:new({width = 64, height = 64, color={0.5, 0.5, 0.5}, click = function(obj)
-                obj.height = obj.height + 5
-                obj.parent:refresh()
-            end})
-        }),
-
-        ui.ElementList:new({x = 128, width = 500, height = 64, orientation="horizontal"}, {
-            ui.ColorButton:new({width = 64, height = 64, color={0.5, 0.5, 0.5}}),
-            ui.ColorButton:new({width = 64, height = 64, color={0.5, 0.5, 0.5}}),
-            ui.ColorButton:new({width = 64, height = 64, color={0.5, 0.5, 0.5}})
-        }),
-
-        ui.ElementList:new({x = 128, y = 128, width = 64*5, height = 64, orientation="horizontal", mode="fit"}, {
-            ui.ColorButton:new({height = 64, color={0.5, 0.5, 0.5}}),
-            ui.ColorButton:new({height = 64, color={0.5, 0.5, 0.5}}),
-            ui.ColorButton:new({height = 64, color={0.5, 0.5, 0.5}})
-        }),
-
-        ui.ElementList:new({y = 64*4, width = 64, height = 64*5, orientation="vertical", mode="fit"}, {
-            ui.ColorButton:new({width = 64, color={0.5, 0.5, 0.5}}),
-            ui.ColorButton:new({width = 64, color={0.5, 0.5, 0.5}}),
-            ui.ColorButton:new({width = 64, color={0.5, 0.5, 0.5}})
-        }),
+        -- Layers panel
+        ui.Panel:new({width=200, height=300}, {
+            ui.ElementList:new({inherit_size = "both", orientation = "vertical", color={1, 1, 1, 0.5}}, {
+                ui.Panel:new({})
+            })
+        })
+        
     })
 end
 

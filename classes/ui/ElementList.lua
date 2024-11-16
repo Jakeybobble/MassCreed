@@ -5,10 +5,10 @@ function class:init(options, elements)
 
     self.orientation = options.orientation or "horizontal"
     -- Modes:\
-    -- nil - No resizing\
+    -- none - No resizing\
     -- "shrink" - Shrinks self to size of children\
     -- "fit" - Resizes children to fit inside element (TODO)\
-    self.mode = options.mode or "shrink"
+    self.mode = options.mode or "none"
 
     if self.orientation == "horizontal" then
         self.child_width = self.width / #self.elements

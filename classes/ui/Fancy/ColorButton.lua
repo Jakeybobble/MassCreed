@@ -9,7 +9,7 @@ function class:init(options, elements)
 
     self.shrink, self.shrink_to = 0, 0
 
-    self.text = "Test..."
+    self.text = options.text or ""
 
     --
 

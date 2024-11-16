@@ -6,6 +6,9 @@ function class:init(options, elements)
 
     self.elements = elements or {}
     self.parent = nil
+
+    self.inherit_size = options.inherit_size or "none"
+
     self.x, self.y = options.x or 0, options.y or 0
     self.width, self.height = options.width or 0, options.height or 0
 
@@ -23,6 +26,8 @@ function class:init(options, elements)
 
     self.click = options.click or nil
 
+    -- TODO: bool variable for keeping element inside its parent
+
 end
 
 class.draw = nil
@@ -33,6 +38,9 @@ function class:on_draw()
 
     love.graphics.push()
     local x, y = self.x, self.y
+
+    self.width = (self.inherit_size == "width" or self.inherit_size == "both") and self.parent.width or self.width
+    self.height = (self.inherit_size == "height" or self.inherit_size == "both") and self.parent.height or self.height
 
     love.graphics.translate(x, y)
     self.global_x, self.global_y = love.graphics.transformPoint(0,0)
