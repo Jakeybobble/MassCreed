@@ -5,5 +5,5 @@ function class:init(options, elements)
 end
 
 function class:on_click()
-    if self.click then self.click() end
+    if self.click then self.click(self) end
 end

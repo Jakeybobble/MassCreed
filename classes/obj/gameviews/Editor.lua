@@ -9,8 +9,9 @@ function class:init()
         ui.ElementList:new({width = 64, height = 500, orientation="vertical"}, {
             ui.ColorButton:new({width = 64, height = 64, color={0.5, 0.5, 0.5}}),
             ui.ColorButton:new({width = 64, height = 64, color={0.5, 0.5, 0.5}}),
-            ui.ColorButton:new({width = 64, height = 64, color={0.5, 0.5, 0.5}, click = function()
+            ui.ColorButton:new({width = 64, height = 64, color={0.5, 0.5, 0.5}, click = function(obj)
                 print("Ok.")
+                obj.width = obj.width + 5
             end})
         }),
 
