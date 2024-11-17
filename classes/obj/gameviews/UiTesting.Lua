@@ -7,7 +7,7 @@ function class:init()
     local w, h = love.window.getMode()
     self.element = ui.Element:new({width=w, height=h}, {
 
-        -- Vertical fit list with
+        -- Vertical fit list
         ui.ElementList:new({mode="fit", margins={10}, width=64, height=300, orientation="vertical", color = white}, {
             ui.ColorButton:new({inherit_size = "width", height=32}),
             ui.ColorButton:new({inherit_size = "width", height=32}),
@@ -37,11 +37,50 @@ function class:init()
                 ui.ElementList:new({mode="fit", spacing=3, inherit_size="width", margins ={5}, orientation="vertical", color=white}, {
 
                 }),
-                ui.ElementList:new({mode="fit", spacing=3, inherit_size="width", margins ={5}, orientation="vertical", color=white}, {
-                    -- TODO: Add horizontals inside
+                ui.ElementList:new({mode="fit", spacing=3, inherit_size="width", margins ={5}, orientation="horizontal", color=white}, {
+                    ui.ColorButton:new({inherit_size = "height"}),
+                    ui.ColorButton:new({inherit_size = "height"})
                 })
             })
         }),
+
+        -- Horizontal fit list
+        ui.ElementList:new({y=320, mode="fit", margins={10}, width=300, height=64, orientation="horizontal", color = white}, {
+            ui.ColorButton:new({inherit_size = "height", width=32}),
+            ui.ColorButton:new({inherit_size = "height", width=32}),
+            ui.ColorButton:new({inherit_size = "height", width=32}),
+            ui.ColorButton:new({inherit_size = "height", width=32})
+        }),
+
+        -- Horizontal shrink list
+        ui.ElementList:new({y=320+64, mode="shrink", margins={10}, height=64, orientation="horizontal", color = white}, {
+            ui.ColorButton:new({inherit_size = "height", width=32}),
+            ui.ColorButton:new({inherit_size = "height", width=32}),
+            ui.ColorButton:new({inherit_size = "height", width=32}),
+            ui.ColorButton:new({inherit_size = "height", width=32})
+        }),
+
+        -- Nested horizontal lists
+        ui.ElementList:new({y=320+64*2, spacing=3, mode="fit", margins = {5}, width=300, height=128, orientation="horizontal", color = white}, {
+            ui.ElementList:new({mode="fit", spacing=3, inherit_size="height", margins ={5}, orientation="horizontal", color=white}, {
+                ui.ElementList:new({mode="fit", spacing=3, inherit_size="height", margins ={5}, orientation="horizontal", color=white}, {
+
+                }),
+                ui.ElementList:new({mode="fit", spacing=3, inherit_size="height", margins ={5}, orientation="horizontal", color=white}, {
+                    
+                })
+            }),
+            ui.ElementList:new({mode="fit", spacing=3, inherit_size="height", margins ={5}, orientation="horizontal", color=white}, {
+                ui.ElementList:new({mode="fit", spacing=3, inherit_size="height", margins ={5}, orientation="horizontal", color=white}, {
+
+                }),
+                ui.ElementList:new({mode="fit", spacing=3, inherit_size="height", margins ={5}, orientation="vertical", color=white}, {
+                    ui.ColorButton:new({inherit_size = "width"}),
+                    ui.ColorButton:new({inherit_size = "width"})
+                })
+            })
+        }),
+
     })
 end
 

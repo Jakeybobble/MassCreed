@@ -10,6 +10,12 @@ function class:init(options, elements)
     -- "fit" - Resizes children to fit inside element\
     self.mode = options.mode or "none"
 
+    if self.orientation == "h" then
+        self.orientation = "horizontal"
+    elseif self.orientation == "v" then
+        self.orientation = "vertical"
+    end
+
     if self.orientation == "horizontal" then
         self.child_width = self.width / #self.elements
     else
@@ -71,29 +77,63 @@ function class:get_list_data(element)
     x, y = self.margins[4], self.margins[1]
 
     if self.mode == "fit" then
-        local child_width = (self.height - self.spacing * (#self.elements - 1) - self.margins[1] - self.margins[3]) / #self.elements
-        h = child_width
+        local child_width = 0
+        if self.orientation == "horizontal" then
+            child_width = (self.width - self.spacing * (#self.elements - 1) - self.margins[4] - self.margins[2]) / #self.elements
+            w = child_width
+        else
+            child_width = (self.height - self.spacing * (#self.elements - 1) - self.margins[1] - self.margins[3]) / #self.elements
+            h = child_width
+        end
+        
+        
     end
 
     local prev = self.elements[pos-1]
     local total_width = 0
     if prev then
-        local val = prev.y + prev.height + self.spacing
-        y, total_width = val, val
+        local val = 0
+        if self.orientation == "horizontal" then
+            val = prev.x + prev.width + self.spacing
+            x, total_width = val, val
+        else
+            val = prev.y + prev.height + self.spacing
+            y, total_width = val, val
+        end
     end
     
-    if self.mode == "shrink" and pos == #self.elements then -- TODO: Horizontal case
-        self.height = total_width + element.height + self.margins[2]
+    if self.mode == "shrink" and pos == #self.elements then
+        if self.orientation == "horizontal" then
+            self.width = total_width + element.width + self.margins[3]
+        else
+            self.height = total_width + element.height + self.margins[2]
+        end
+        
     end
 
-    -- TODO: Horizontal case
+    -- I'd love to shorten this.
     if element.inherit_size == "width" then
-        w = self.width - self.margins[2] * 2
+        if self.orientation == "horizontal" then
+            w = self.width - total_width - self.margins[2]
+        else
+            w = self.width - self.margins[2] * 2
+        end
     elseif element.inherit_size == "height" then
-        h = self.height - self.margins[3] * 2
+        if self.orientation == "horizontal" then
+            h = self.height - self.margins[3] * 2
+        else
+            h = self.height - total_width - self.margins[3]
+        end
+        
     elseif element.inherit_size == "both" then
-        w = self.width - self.margins[2] * 2
-        h = self.height - total_width - self.margins[3]
+        if self.orientation == "horizontal" then
+            w = self.width - total_width - self.margins[2]
+            h = self.height - self.margins[3] * 2
+        else
+            w = self.width - self.margins[2] * 2
+            h = self.height - total_width - self.margins[3]
+        end
+        
     end
 
     return x, y, w, h
