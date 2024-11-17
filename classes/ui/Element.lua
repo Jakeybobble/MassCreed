@@ -48,6 +48,8 @@ function class:init(options, elements)
     -- TODO: bool variable for keeping element inside its parent
     self.combined_margins = {self.margins[2], self.margins[3]}
 
+    self.list_index = nil
+
 end
 
 class.draw = nil
@@ -58,6 +60,7 @@ function class:on_draw()
 
     love.graphics.push()
     local x, y = self.x, self.y
+    local w, h = self.width, self.height
 
     local margins = {0, 0}
 
@@ -70,20 +73,36 @@ function class:on_draw()
     
     end
 
+    if self.list_index ~= nil then
+        local _x, _y, _w, _h = self.parent:get_list_data(self)
+        x, y, w, h = _x, _y, _w, _h
+    else
+        if self.inherit_size == "both" then
+            w = self.parent.width - x - self.parent.combined_margins[1]
+            h = self.parent.height - y - self.parent.combined_margins[2]
+        elseif self.inherit_size == "width" then
+            w = self.parent.width - x - self.parent.combined_margins[1]
+        elseif self.inherit_size == "height" then
+            h = self.parent.height - y - self.parent.combined_margins[2]
+        end
+    end
+    self.x, self.y = x, y
+    self.width, self.height = w, h
+
     -- X/Y is subtracted from the width/height to allow lists to fill the rest
-    self.width = ((self.inherit_size == "width" or self.inherit_size == "both") and self.parent.width - self.x - self.combined_margins[1] or self.width)
-    self.height = ((self.inherit_size == "height" or self.inherit_size == "both") and self.parent.height - self.y - self.combined_margins[2] or self.height)
+    -- self.width = (self.inherit_size == "width" or self.inherit_size == "both") and self.parent.width - self.x - self.combined_margins[1] or w
+    -- self.height = (self.inherit_size == "height" or self.inherit_size == "both") and self.parent.height - self.y - self.combined_margins[2] or h
 
     
 
-    local width, height = self.width - margins[1] * 2, self.height - margins[2] * 2
+    --local width, height = self.width - margins[1] * 2, self.height - margins[2] * 2
 
     love.graphics.translate(x, y)
     self.global_x, self.global_y = love.graphics.transformPoint(0,0)
 
     if self.color then
         love.graphics.setColor(self.color[1], self.color[2], self.color[3], self.color[4] or 1)
-        love.graphics.rectangle("fill", 0, 0, width, height)
+        love.graphics.rectangle("fill", 0, 0, self.width, self.height)
         love.graphics.setColor(1, 1, 1, 1)
     end
 
