@@ -26,8 +26,6 @@ function class:init()
         {1, 5, 10}, {2, 6, 10}, {2, 7, 10}, {2, 8, 10}, {2, 9, 10}, {3, 10, 10}
     }
 
-    love.graphics.setBackgroundColor(0.157, 0.208, 0.251)
-
 end
 
 function class:update(dt)

@@ -5,10 +5,12 @@ global_rooms = {}
 
 function love.load()
     
+    love.graphics.setBackgroundColor(0.157, 0.208, 0.251)
     love.graphics.setDefaultFilter("nearest", "nearest", 1)
     init.init()
 
-    current_view = classes.Game:new()
+    --current_view = classes.Game:new()
+    current_view = classes.Editor:new()
 
 end
 

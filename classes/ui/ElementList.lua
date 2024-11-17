@@ -7,7 +7,7 @@ function class:init(options, elements)
     -- Modes:\
     -- none - No resizing\
     -- "shrink" - Shrinks self to size of children\
-    -- "fit" - Resizes children to fit inside element (TODO)\
+    -- "fit" - Resizes children to fit inside element\
     self.mode = options.mode or "none"
 
     if self.orientation == "horizontal" then
@@ -15,6 +15,8 @@ function class:init(options, elements)
     else
         self.child_width = self.height / #self.elements
     end
+
+    -- TODO: Add spacing.
 
     self:refresh()
 

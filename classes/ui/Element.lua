@@ -26,9 +26,27 @@ function class:init(options, elements)
 
     self.click = options.click or nil
 
-    self.margins = options.margins or {0}
+    -- Margins order: Top, right, bottom left
+    local _m = options.margins
+    if _m then
+        if #_m == 1 then
+            -- All
+            self.margins = {_m[1], _m[1], _m[1], _m[1]}
+        elseif #_m == 2 then
+            -- Top bottom
+            self.margins = {_m[1], _m[2], _m[1], _m[2]}
+        elseif #_m == 3 then
+            -- Top, left/right, bottom
+            self.margins = {_m[1], _m[2], _m[3], _m[2]}
+        else
+            self.margins = options.margins
+        end
+    else
+        self.margins = {0, 0, 0, 0}
+    end
 
     -- TODO: bool variable for keeping element inside its parent
+    self.combined_margins = {self.margins[2], self.margins[3]}
 
 end
 
@@ -38,16 +56,27 @@ function class:on_draw()
         
     if not self.visible then do return end end
 
-    local margin = self.margins[1] -- TODO: Add margins for different sides
-
     love.graphics.push()
-    local x, y = self.x + margin, self.y + margin
+    local x, y = self.x, self.y
+
+    local margins = {0, 0}
+
+    if self.parent then
+        x = x + self.parent.margins[4]
+        y = y + self.parent.margins[1]
+
+        margins = self.parent.combined_margins
+        self.combined_margins = {self.margins[2] + margins[1], self.margins[3] + margins[2]}
+    
+    end
 
     -- X/Y is subtracted from the width/height to allow lists to fill the rest
-    self.width = ((self.inherit_size == "width" or self.inherit_size == "both") and self.parent.width - self.x or self.width)
-    self.height = ((self.inherit_size == "height" or self.inherit_size == "both") and self.parent.height - self.y or self.height)
+    self.width = ((self.inherit_size == "width" or self.inherit_size == "both") and self.parent.width - self.x - self.combined_margins[1] or self.width)
+    self.height = ((self.inherit_size == "height" or self.inherit_size == "both") and self.parent.height - self.y - self.combined_margins[2] or self.height)
 
-    local width, height = self.width - margin*2, self.height - margin*2
+    
+
+    local width, height = self.width - margins[1] * 2, self.height - margins[2] * 2
 
     love.graphics.translate(x, y)
     self.global_x, self.global_y = love.graphics.transformPoint(0,0)

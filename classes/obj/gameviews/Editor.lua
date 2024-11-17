@@ -9,7 +9,11 @@ function class:init()
         ui.Panel:new({width=200, height=300}, {
             ui.ElementList:new({inherit_size = "both", orientation = "vertical"}, {
                 ui.Panel:new({inherit_size = "width", height = 50, text = "Layers"}),
-                ui.ElementList:new({inherit_size = "both", orientation = "vertical", color = {1, 1, 1}, margins={6}})
+                ui.ElementList:new({margins={5, 10}, width=100, height=100, orientation="vertical", mode="fit"}, {
+                    ui.ColorButton:new({inherit_size = "width", color={0.5, 0.5, 0.5}}),
+                    ui.ColorButton:new({inherit_size = "width", color={0.5, 0.5, 0.5}}),
+                    ui.ColorButton:new({inherit_size = "width", color={0.5, 0.5, 0.5}})
+                }),
             })
         })
         
