@@ -6,30 +6,14 @@ function class:init()
     local w, h = love.window.getMode()
     self.element = ui.Element:new({width=w, height=h}, {
         -- Layers panel
-        ui.Panel:new({width=200, height=300, x = 5, y = 5}, {
-            ui.ElementList:new({inherit_size = "both", margins={10}, orientation = "vertical", color={0, 1, 1, 0.5}}, {
+        ui.Panel:new({width=200, height=300}, {
+            ui.ElementList:new({inherit_size = "both", orientation = "vertical"}, {
                 ui.Panel:new({inherit_size = "width", height = 50, text = "Layers"}),
-                ui.Panel:new({inherit_size = "width", height = 50, text = "Layers"}),
-                ui.ElementList:new({inherit_size = "both", orientation="vertical", color = {1, 0, 0, 0.5}})
-            })
-        }),
-
-        ui.ElementList:new({x=300, mode="fit", margins={10, 10}, width=200, height=400, orientation="vertical", color = {1, 1, 1, 0.2}}, {
-            ui.ColorButton:new({inherit_size = "width", height=32}),
-            ui.ColorButton:new({inherit_size = "width", height=32}),
-            ui.ColorButton:new({inherit_size = "width", height=32}),
-            ui.ColorButton:new({inherit_size = "width", height=32})
-        }),
-
-        ui.ElementList:new({x=520, mode="fit", margins={10, 10}, width=200, height=400, orientation="vertical", color = {1, 1, 1, 0.2}}, {
-            ui.ElementList:new({mode="fit", margins={10, 10}, inherit_size="both", orientation="vertical", color = {1, 1, 1, 0.2}}, {
-                ui.ColorButton:new({inherit_size = "width", height=32}),
-                ui.ColorButton:new({inherit_size = "width", height=32}),
-                ui.ColorButton:new({inherit_size = "width", height=32}),
-                ui.ColorButton:new({inherit_size = "width", height=32})
+                ui.ElementList:new({margins={1, 5}, inherit_size = "both", orientation="vertical"}, {
+                    ui.Panel:new({inherit_size = "width", height = 40, text = "Layer 1"})
+                })
             })
         })
-        
     })
 end
 
