@@ -70,6 +70,8 @@ function class:get_list_data(element)
     local pos = element.list_index
     x, y = self.margins[4], self.margins[1]
 
+    -- FIXME: Spacing is added to the end of a fit list
+
     if self.mode == "fit" then
         local child_width = (self.height - self.spacing * #self.elements - self.margins[1] - self.margins[3]) / #self.elements
         h = child_width
