@@ -102,3 +102,9 @@ function class:get_list_data(element)
 
     return x, y, w, h
 end
+
+function class:add_child(element)
+    element.parent = self
+    table.insert(self.elements, element)
+    self:refresh()
+end

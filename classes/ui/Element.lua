@@ -50,6 +50,10 @@ function class:init(options, elements)
 
     self.list_index = nil
 
+    if options.init_func then
+        options.init_func(self)
+    end
+
 end
 
 class.draw = nil
@@ -111,4 +115,10 @@ function class:resize(w, h)
     self.width, self.height = w, h
 end
 
+function class:add_child(element)
+    element.parent = self
+    table.insert(self.elements, element)
+end
+
 class.on_click = nil -- If an element should be able to be clickable without being a button, this should be changed.
+class.init_func = nil
