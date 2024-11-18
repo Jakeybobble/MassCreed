@@ -1,6 +1,6 @@
 inherit("Room")
 
-room_name = "TestRoom"
+class.room_name = "TestRoom"
 
 function class:init()
      class.super.init(self)
