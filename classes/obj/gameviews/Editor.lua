@@ -15,6 +15,7 @@ function class:init()
             ui.ElementList:new({inherit_size = "both", orientation = "vertical"}, {
                 ui.Panel:new({inherit_size = "width", height = 50, text = "Layers"}),
                 ui.ElementList:new({margins={1, 5}, inherit_size = "both", orientation="vertical", init_func = function(e) self.layers_list = e end}, {
+                    -- TODO: Change to a scroll view when that exists...
                     -- Contains each layer...
                     
                 })
@@ -33,10 +34,16 @@ function class:new_layer()
     --table.insert(self.layers_list.elements, new_element)
     --self.layers_list:refresh()
     self.layers_list:add_child(new_element)
+    table.insert(self.layers, new_layer)
     
 end
 
 function class:draw()
+
+    for i, v in ipairs(self.layers) do
+        v:draw_world()
+    end
+
     self.element:on_draw()
 end
 
