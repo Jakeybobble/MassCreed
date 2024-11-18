@@ -81,6 +81,11 @@ function class:init()
             })
         }),
 
+        -- Images
+        ui.Image:new({x = 64*4, width=64, height=64, image="assets/bip.png"}),
+        ui.Image:new({x = 64*4, y=64, width=128, height=128, image="assets/bip.png", color=white}),
+        ui.Image:new({x = 64*4, y=64*3, width=128, height=32, image="assets/bip.png", color=white}),
+
     })
 end
 
