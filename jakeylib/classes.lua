@@ -65,13 +65,6 @@ function module.register_class(name)
         env.class = obj
         chunk()
     end
-    
-    -- Adds attributes to class
-    for k,v in pairs(env) do
-        if type(v) ~= "function" then
-            obj[k] = v
-        end
-    end
 
     -- Add obj to table of all classes
     local register_string = "Registered class '"..name.."'"

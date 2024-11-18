@@ -1,5 +1,3 @@
-dadcount = 5
-
 function class:init()
     print("Dad moment.")
 end
