@@ -11,8 +11,6 @@ function class:init(options, elements)
 
     self.text = options.text or ""
 
-    --
-
     self.text_height = love.graphics.getFont():getHeight()
 
 end

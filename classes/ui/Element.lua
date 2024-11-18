@@ -89,14 +89,6 @@ function class:on_draw()
     self.x, self.y = x, y
     self.width, self.height = w, h
 
-    -- X/Y is subtracted from the width/height to allow lists to fill the rest
-    -- self.width = (self.inherit_size == "width" or self.inherit_size == "both") and self.parent.width - self.x - self.combined_margins[1] or w
-    -- self.height = (self.inherit_size == "height" or self.inherit_size == "both") and self.parent.height - self.y - self.combined_margins[2] or h
-
-    
-
-    --local width, height = self.width - margins[1] * 2, self.height - margins[2] * 2
-
     love.graphics.translate(x, y)
     self.global_x, self.global_y = love.graphics.transformPoint(0,0)
 
