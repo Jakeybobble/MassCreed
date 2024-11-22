@@ -34,13 +34,15 @@ function module.register_classes(...)
 
 end
 
+local fs = love.filesystem
+
 function module.register_class(name)
     local path = trees[name].file_path
     local class_table = trees[name].class_table
 
     if class_table[name] then return class_table[name] end
 
-    local chunk = assert(loadfile(path))
+    local chunk = assert(fs.load(path))
     local env = {}
     setmetatable(env, {__index = _G })
 
