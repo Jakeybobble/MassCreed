@@ -32,6 +32,9 @@ end
 
 local lg = love.graphics
 function class:on_draw()
+
+    -- Problem: Scroll in scroll does not work... Even though it is a limitation I could live with.
+
     self:draw_resize()
     if not self.canvas then
         self.canvas = lg.newCanvas(self.width, self.height)
@@ -47,7 +50,8 @@ function class:on_draw()
     lg.clear(0, 0, 0, 0)
 
     lg.push()
-    lg.translate(self.offset_x, self.offset_y)
+    
+    lg.translate(self.offset_x - self.x, self.offset_y - self.y) -- Accounts for width/height of previous items in ListElement... TODO: Find better fix
     class.super.on_draw(self, true) -- Skip resize so we can do it here instead.
     lg.pop()
     lg.setCanvas()
