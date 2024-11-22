@@ -58,7 +58,11 @@ end
 
 class.draw = nil
 
-function class:draw_resize()
+function class:on_draw()
+        
+    if not self.visible then do return end end
+
+    love.graphics.push()
     local x, y = self.x, self.y
     local w, h = self.width, self.height
 
@@ -88,18 +92,8 @@ function class:draw_resize()
     end
     self.x, self.y = x, y
     self.width, self.height = w, h
-end
 
-function class:on_draw(skip_resize)
-    
-    if not self.visible then do return end end
-
-    if not skip_resize then
-        self:draw_resize()
-    end
-
-    love.graphics.push()
-    love.graphics.translate(self.x, self.y)
+    love.graphics.translate(x, y)
     self.global_x, self.global_y = love.graphics.transformPoint(0,0)
 
     if self.color then
