@@ -38,7 +38,8 @@ end
 function class:get_list_data(element)
     local x, y, w, h = element.x, element.y, element.width, element.height
     local pos = element.list_index
-    x, y = self.margins[4], self.margins[1]
+    --x, y = self.margins[4], self.margins[1]
+    x, y = 0, 0
 
     if self.mode == "fit" then
         local child_width = 0
@@ -68,9 +69,9 @@ function class:get_list_data(element)
     
     if self.mode == "shrink" and pos == #self.elements then
         if self.orientation == "horizontal" then
-            self.width = total_width + element.width + self.margins[3]
+            self.width = total_width + element.width + self.margins[3] + self.margins[1]
         else
-            self.height = total_width + element.height + self.margins[2]
+            self.height = total_width + element.height + self.margins[2] + self.margins[4]
         end
         
     end

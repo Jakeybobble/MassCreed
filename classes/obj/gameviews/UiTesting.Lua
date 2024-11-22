@@ -5,7 +5,7 @@ function class:init()
 
     local white = {1, 1, 1, 0.2}
     local w, h = love.window.getMode()
-    self.element = ui.Element:new({width=w, height=h}, {
+    self.element = ui.Element:new({width=w, height=h, margins={13}}, {
 
         -- Vertical fit list
         ui.ElementList:new({mode="fit", margins={10}, width=64, height=300, orientation="vertical", color = white}, {

@@ -65,12 +65,13 @@ function class:on_draw()
     love.graphics.push()
     local x, y = self.x, self.y
     local w, h = self.width, self.height
+    local offset_x, offset_y = 0, 0
 
     local margins = {0, 0}
 
     if self.parent then
-        x = x + self.parent.margins[4]
-        y = y + self.parent.margins[1]
+        offset_x = self.parent.margins[4]
+        offset_y = self.parent.margins[1]
 
         margins = self.parent.combined_margins
         self.combined_margins = {self.margins[2] + margins[1], self.margins[3] + margins[2]}
@@ -93,7 +94,7 @@ function class:on_draw()
     self.x, self.y = x, y
     self.width, self.height = w, h
 
-    love.graphics.translate(x, y)
+    love.graphics.translate(x + offset_x, y + offset_y)
     self.global_x, self.global_y = love.graphics.transformPoint(0,0)
 
     if self.color then

@@ -10,8 +10,8 @@ function love.load()
     init.init()
 
     --current_view = classes.Game:new()
-    current_view = classes.Editor:new()
-    --current_view = classes.UiTesting:new()
+    --current_view = classes.Editor:new()
+    current_view = classes.UiTesting:new()
 
 end
 
