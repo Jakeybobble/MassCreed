@@ -9,9 +9,9 @@ function love.load()
     love.graphics.setDefaultFilter("nearest", "nearest", 1)
     init.init()
 
-    --current_view = classes.Game:new()
-    --current_view = classes.Editor:new()
-    current_view = classes.UiTesting:new()
+    --current_view = gameviews.Game:new()
+    current_view = gameviews.Editor:new()
+    --current_view = gameviews.UiTesting:new()
 
 end
 
@@ -46,10 +46,10 @@ function love.keypressed(key)
     if key == "p" then
         if current_view.name == "Game" then
             print("Entered Game View")
-            current_view = classes.Editor:new()
+            current_view = gameviews.Editor:new()
         elseif current_view.name == "Editor" then
             print("Entered Editor View")
-            current_view = classes.Game:new()
+            current_view = gameviews.Game:new()
         end
         do return end
     end

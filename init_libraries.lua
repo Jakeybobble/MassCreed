@@ -10,9 +10,16 @@ ui = {}
 rooms = {}
 -- Table of editor classes
 editor = {}
+-- Table of gameview classes
+gameviews = {}
 
 module.init = function()
-    jakeylib.init({"classes/obj", classes}, {"classes/ui", ui}, {"classes/rooms", rooms}, {"classes/editor", editor})
+    jakeylib.init(
+    {"classes/obj", classes},
+    {"classes/ui", ui},
+    {"classes/rooms", rooms},
+    {"classes/editor", editor},
+    {"classes/gameviews", gameviews})
 end
 
 return module
