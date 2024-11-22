@@ -21,25 +21,19 @@ end
 
 function class:draw()
     -- Temporary scrolling code
-    local h = self.elements[1].height
     if love.keyboard.isDown("down") then
         self.offset_y = self.offset_y + 5
     elseif love.keyboard.isDown("up") then
         self.offset_y = self.offset_y - 5
     end
-    if h > self.height then
-        self.offset_y = math.min(math.max(self.offset_y, self.height - h), 0)
-    else
-        self.offset_y = 0
-    end
-    
+
+    -- TODO: Little transparent scrollbar
 end
 
 local lg = love.graphics
 function class:on_draw()
 
     -- Problem: Scroll in scroll does not work... Even though it is a limitation I could live with.
-    -- Problem 2: This element freaks out when there are margins. There must be an increment somewhere.
 
     self:draw_resize()
     if not self.canvas then

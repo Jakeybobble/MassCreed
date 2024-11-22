@@ -17,10 +17,12 @@ function class:init()
             ui.ElementList:new({inherit_size = "both", orientation = "vertical"}, {
                 ui.Panel:new({inherit_size = "width", height = 50, text = "Layers"}),
                 ui.Scroll:new({}, {
-                    ui.ElementList:new({margins={1, 5}, mode="shrink", inherit_size = "both", orientation="vertical", init_func = function(e) self.layers_list = e end}, {
-                        -- TODO: Change to a scroll view when that exists...
-                        -- Contains each layer...
-                        
+                    ui.ElementList:new({inherit_size = "both", orientation = "vertical"}, {
+                        ui.ElementList:new({margins={1, 5}, inherit_size = "both", orientation="vertical", init_func = function(e) self.layers_list = e end}, {
+                            -- TODO: Change to a scroll view when that exists...
+                            -- Contains each layer...
+                            
+                        })
                     })
                 })
                 
@@ -31,7 +33,6 @@ function class:init()
 end
 
 function class:new_layer()
-    
     -- TODO: Add a prompt for picking what layer type to add
     local new_layer = editor.TileMapLayer:new()
     local new_element = ui.ColorButton:new({inherit_size="width", height=32, text=new_layer.name})
