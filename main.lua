@@ -72,3 +72,9 @@ function love.keypressed(key)
         current_view:resize(w, h)
     end
 end
+
+function love.wheelmoved(x,y)
+    if current_view then
+        current_view:wheelmoved(x,y)
+    end
+end

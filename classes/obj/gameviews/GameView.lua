@@ -23,3 +23,7 @@ end
 function class:resize(w, h)
     
 end
+
+function class:wheelmoved(x,y)
+
+end

@@ -34,4 +34,6 @@ function module.handle_click(element)
     end
 end
 
+module.scroll_x, module.scroll_y = 0, 0
+
 return module

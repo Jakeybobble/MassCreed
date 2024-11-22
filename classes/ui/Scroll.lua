@@ -1,4 +1,5 @@
 inherit("Element")
+local gui = require("jakeylib/gui_handler")
 
 function class:init(options, elements)
     class.super.init(self, options, elements)
@@ -21,12 +22,15 @@ end
 
 function class:draw()
     -- Temporary scrolling code
+
+    if not gui.mouse_inside(self) then do return end end -- Does not function properly.
+
     local h = self.elements[1].height
-    if love.keyboard.isDown("down") then
-        self.offset_y = self.offset_y + 5
-    elseif love.keyboard.isDown("up") then
-        self.offset_y = self.offset_y - 5
-    end
+
+    self.offset_y = self.offset_y + gui.scroll_y * 10
+    gui.scroll_y = 0 -- Temporary solution until a better scroll system exists
+    --print(self.offset_y)
+
     if h > self.height then
         self.offset_y = math.min(math.max(self.offset_y, self.height - h), 0)
     else
@@ -40,6 +44,7 @@ function class:on_draw()
 
     -- Problem: Scroll in scroll does not work... Even though it is a limitation I could live with.
     -- Problem 2: This element freaks out when there are margins. There must be an increment somewhere.
+    -- Buttons don't function properly either!!!
 
     self:draw_resize()
     if not self.canvas then
