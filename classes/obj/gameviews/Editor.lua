@@ -9,15 +9,17 @@ function class:init()
     self.layers_list = nil
 
     local w, h = love.window.getMode()
-    self.element = ui.Element:new({width=w, height=h}, {
+    self.element = ui.Element:new({x=4, y=4, width=w, height=h}, {
         -- Layers panel
         ui.Panel:new({width=200, height=300}, {
-            ui.ElementList:new({inherit_size = "both", orientation = "vertical"}, {
-                ui.Panel:new({inherit_size = "width", height = 50, text = "Layers"}),
-                ui.ElementList:new({margins={1, 5}, inherit_size = "both", orientation="vertical", init_func = function(e) self.layers_list = e end}, {
-                    -- TODO: Change to a scroll view when that exists...
-                    -- Contains each layer...
-                    
+            ui.Scroll:new({}, {
+                ui.ElementList:new({inherit_size = "both", orientation = "vertical"}, {
+                    ui.Panel:new({inherit_size = "width", height = 50, text = "Layers"}),
+                    ui.ElementList:new({margins={1, 5}, inherit_size = "both", orientation="vertical", init_func = function(e) self.layers_list = e end}, {
+                        -- TODO: Change to a scroll view when that exists...
+                        -- Contains each layer...
+                        
+                    })
                 })
             })
         })
