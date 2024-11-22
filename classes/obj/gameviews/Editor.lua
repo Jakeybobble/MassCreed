@@ -71,8 +71,3 @@ end
 function class:resize(w, h)
     self.element:resize(w,h)
 end
-
-function class:wheelmoved(x, y)
-    gui_handler.scroll_x, gui_handler.scroll_y = x, y
-    print(y)
-end
