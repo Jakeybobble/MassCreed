@@ -13,3 +13,20 @@ function class:init(options, elements)
     self.color = {1, 0, 0, 0.3}
 
 end
+
+function class:render()
+
+    if not self.visible then do return end end
+
+    local child = self.elements[1]
+
+    self:set_transform()
+
+    love.graphics.push()
+    love.graphics.translate(self.x + self.offset_x, self.y + self.offset_y)
+
+    child:render()
+
+    love.graphics.pop()
+
+end
