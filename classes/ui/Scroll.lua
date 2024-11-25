@@ -8,4 +8,6 @@ function class:init(options, elements)
 
     self.canvas = nil
 
+    self.inherit_size = "both"
+
 end
