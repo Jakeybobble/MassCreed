@@ -45,7 +45,7 @@ function class:draw()
         v:draw_world()
     end
 
-    self.element:on_draw()
+    self.element:render()
 end
 
 function class:update(dt)

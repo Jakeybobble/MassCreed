@@ -58,8 +58,8 @@ end
 
 class.draw = nil
 
-function class:on_draw()
-        
+function class:render()
+    
     if not self.visible then do return end end
 
     love.graphics.push()
@@ -104,9 +104,8 @@ function class:on_draw()
     end
 
     if self.draw ~= nil then self:draw() end
-
     for k, v in pairs(self.elements) do
-        v:on_draw()
+        v:render()
     end
     
     love.graphics.pop()

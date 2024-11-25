@@ -10,4 +10,6 @@ function class:init(options, elements)
 
     self.inherit_size = "both"
 
+    self.color = {1, 0, 0, 0.3}
+
 end

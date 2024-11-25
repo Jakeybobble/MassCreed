@@ -90,7 +90,7 @@ function class:init()
 end
 
 function class:draw()
-    self.element:on_draw()
+    self.element:render()
 
 end
 
