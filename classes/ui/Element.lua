@@ -54,15 +54,13 @@ function class:init(options, elements)
         options.init_func(self)
     end
 
+    self.offset_x, self.offset_y = 0, 0 -- Were first a local variable in render(), might consider moving back
+
 end
 
 class.draw = nil
 
-function class:render()
-    
-    if not self.visible then do return end end
-
-    love.graphics.push()
+function class:set_transform()
     local x, y = self.x, self.y
     local w, h = self.width, self.height
     local offset_x, offset_y = 0, 0
@@ -70,8 +68,8 @@ function class:render()
     local margins = {0, 0}
 
     if self.parent then
-        offset_x = self.parent.margins[4]
-        offset_y = self.parent.margins[1]
+        self.offset_x = self.parent.margins[4]
+        self.offset_y = self.parent.margins[1]
 
         margins = self.parent.combined_margins
         self.combined_margins = {self.margins[2] + margins[1], self.margins[3] + margins[2]}
@@ -93,8 +91,16 @@ function class:render()
     end
     self.x, self.y = x, y
     self.width, self.height = w, h
+end
 
-    love.graphics.translate(x + offset_x, y + offset_y)
+function class:render()
+    
+    if not self.visible then do return end end
+
+    self:set_transform()
+
+    love.graphics.push()
+    love.graphics.translate(self.x + self.offset_x, self.y + self.offset_y)
     self.global_x, self.global_y = love.graphics.transformPoint(0,0)
 
     if self.color then
