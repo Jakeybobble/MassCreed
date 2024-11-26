@@ -6,27 +6,24 @@ function class:init(options, elements)
     self.orientation = options.orientation or "vertical"
     self.scroll_x, self.scroll_y = options.scroll_x or 0, options.scroll_y or 0
 
-    self.canvas = nil
-
     self.inherit_size = "both"
 
-    self.color = {1, 0, 0, 0.3}
+end
 
+function class:draw()
+    if love.keyboard.isDown("s") then
+        self.scroll_y = self.scroll_y + 1
+    elseif love.keyboard.isDown("w") then
+        self.scroll_y = self.scroll_y - 1
+    end
 end
 
 function class:render()
-
-    if not self.visible then do return end end
-
-    local child = self.elements[1]
-
-    self:set_transform()
-
-    love.graphics.push()
-    love.graphics.translate(self.x + self.offset_x, self.y + self.offset_y)
-
-    child:render()
-
+    love.graphics.push("all")
+    love.graphics.stencil(function() love.graphics.rectangle("fill", self.x, self.y, self.width, self.height) end, "replace", 1)
+    love.graphics.setStencilTest("greater", 0)
+    love.graphics.translate(self.scroll_x, self.scroll_y)
+    class.super.render(self)
     love.graphics.pop()
-
 end
+
