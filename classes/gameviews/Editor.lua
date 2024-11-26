@@ -14,10 +14,11 @@ function class:init()
         ui.Panel:new({width=200, height=300}, {
             ui.ElementList:new({inherit_size = "both", orientation = "vertical"}, {
                 ui.Panel:new({inherit_size = "width", height = 50, text = "Layers"}),
-                ui.ElementList:new({margins={1, 5}, inherit_size = "both", orientation="vertical", init_func = function(e) self.layers_list = e end}, {
-                    -- TODO: Change to a scroll view when that exists...
-                    -- Contains each layer...
-                    
+                ui.Scroll:new({margins={5}, inherit_size="both"}, {
+                    ui.ElementList:new({color={1, 0, 0, 0.5}, mode="shrink", inherit_size = "both", orientation="vertical", init_func = function(e) self.layers_list = e end}, {
+                        -- Contains each layer...
+                        
+                    })
                 })
             })
         })
@@ -44,7 +45,7 @@ function class:draw()
         v:draw_world()
     end
 
-    self.element:on_draw()
+    self.element:render()
 end
 
 function class:update(dt)

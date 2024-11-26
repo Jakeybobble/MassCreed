@@ -86,11 +86,23 @@ function class:init()
         ui.Image:new({x = 64*4, y=64, width=128, height=128, image="assets/bip.png", color=white}),
         ui.Image:new({x = 64*4, y=64*3, width=128, height=32, image="assets/bip.png", color=white}),
 
+        -- Scroll -- TODO: Add horizontal Scroll example
+        ui.Scroll:new({x = 64*6, width=64, height=64*3}, {
+            ui.ElementList:new({mode="shrink", inherit_size="both", orientation="vertical"}, {
+                ui.Panel({inherit_size="width", height=64}),
+                ui.Panel({inherit_size="width", height=64}),
+                ui.Panel({inherit_size="width", height=64}),
+                ui.Panel({inherit_size="width", height=64}),
+                ui.Panel({inherit_size="width", height=64}),
+                ui.Panel({inherit_size="width", height=64})
+            })
+        })
+
     })
 end
 
 function class:draw()
-    self.element:on_draw()
+    self.element:render()
 
 end
 
