@@ -45,8 +45,7 @@ function class:init(options, elements)
         self.margins = {0, 0, 0, 0}
     end
 
-    -- TODO: bool variable for keeping element inside its parent
-    self.combined_margins = {self.margins[2], self.margins[3]}
+    self.combined_margins = {0, 0} -- This was previously {self.margins[2], self.margins[3]} and I don't remember why.
 
     self.list_index = nil
 

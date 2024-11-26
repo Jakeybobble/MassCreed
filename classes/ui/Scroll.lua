@@ -29,7 +29,7 @@ end
 
 function class:render()
     love.graphics.push("all")
-    love.graphics.stencil(function() love.graphics.rectangle("fill", self.x, self.y, self.width, self.height) end, "replace", 1)
+    love.graphics.stencil(function() love.graphics.rectangle("fill", self.x + self.offset_x, self.y + self.offset_y, self.width, self.height) end, "replace", 1)
     love.graphics.setStencilTest("greater", 0)
     love.graphics.translate(self.scroll_x, self.scroll_y)
     class.super.render(self)
