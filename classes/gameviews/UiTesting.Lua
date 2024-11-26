@@ -85,6 +85,18 @@ function class:init()
         ui.Image:new({x = 64*4, width=64, height=64, image="assets/bip.png"}),
         ui.Image:new({x = 64*4, y=64, width=128, height=128, image="assets/bip.png", color=white}),
         ui.Image:new({x = 64*4, y=64*3, width=128, height=32, image="assets/bip.png", color=white}),
+        
+        -- Scroll
+        ui.Scroll:new({x = 64*6, width=64, height=256, color={1, 0, 0, 0.3}}, {
+            ui.ElementList:new({mode="shrink", inherit_size="both", orientation="vertical"}, {
+                ui.Panel({inherit_size="width", height=64}),
+                ui.Panel({inherit_size="width", height=64}),
+                ui.Panel({inherit_size="width", height=64}),
+                ui.Panel({inherit_size="width", height=64}),
+                ui.Panel({inherit_size="width", height=64}),
+                ui.Panel({inherit_size="width", height=64})
+            })
+        })
 
     })
 end

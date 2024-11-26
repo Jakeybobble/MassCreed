@@ -6,16 +6,25 @@ function class:init(options, elements)
     self.orientation = options.orientation or "vertical"
     self.scroll_x, self.scroll_y = options.scroll_x or 0, options.scroll_y or 0
 
-    self.inherit_size = "both"
-
 end
 
-function class:draw()
-    if love.keyboard.isDown("s") then
-        self.scroll_y = self.scroll_y + 1
-    elseif love.keyboard.isDown("w") then
-        self.scroll_y = self.scroll_y - 1
+function class:draw_above()
+    local h = self.elements[1].height
+    local s = 5 -- Speed/sensitivity
+
+    if love.keyboard.isDown("w") then
+        self.scroll_y = self.scroll_y + 1 * s
+    elseif love.keyboard.isDown("s") then
+        self.scroll_y = self.scroll_y - 1 * s
     end
+
+    if h > self.height then
+    local min_offset = self.height - h
+        self.scroll_y = math.min(math.max(self.scroll_y, min_offset), 0)
+    else
+        self.scroll_y = 0
+    end
+
 end
 
 function class:render()
@@ -25,5 +34,6 @@ function class:render()
     love.graphics.translate(self.scroll_x, self.scroll_y)
     class.super.render(self)
     love.graphics.pop()
+    self:draw_above()
 end
 

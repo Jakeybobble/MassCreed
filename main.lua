@@ -10,8 +10,8 @@ function love.load()
     init.init()
 
     --current_view = gameviews.Game:new()
-    current_view = gameviews.Editor:new()
-    --current_view = gameviews.UiTesting:new()
+    --current_view = gameviews.Editor:new()
+    current_view = gameviews.UiTesting:new()
 
 end
 
