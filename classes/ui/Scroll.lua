@@ -3,12 +3,13 @@ inherit("Element")
 function class:init(options, elements)
     class.super.init(self, options, elements)
 
-    self.orientation = options.orientation or "vertical"
+    self.orientation = options.orientation or "vertical" -- TODO: Add horizontal functionality
     self.scroll_x, self.scroll_y = options.scroll_x or 0, options.scroll_y or 0
 
 end
 
 function class:draw_above()
+    -- TODO: Add mouse scrolling
     local h = self.elements[1].height
     local s = 5 -- Speed/sensitivity
 
