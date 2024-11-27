@@ -1,4 +1,5 @@
 -- Element.lua: The base element of any UI element
+local lg = love.graphics
 
 function class:init(options, elements)
     
@@ -98,14 +99,14 @@ function class:render()
 
     self:set_transform()
 
-    love.graphics.push()
-    love.graphics.translate(self.x + self.offset_x, self.y + self.offset_y)
-    self.global_x, self.global_y = love.graphics.transformPoint(0,0)
+    lg.push()
+    lg.translate(self.x + self.offset_x, self.y + self.offset_y)
+    self.global_x, self.global_y = lg.transformPoint(0,0)
 
     if self.color then
-        love.graphics.setColor(self.color[1], self.color[2], self.color[3], self.color[4] or 1)
-        love.graphics.rectangle("fill", 0, 0, self.width, self.height)
-        love.graphics.setColor(1, 1, 1, 1)
+        lg.setColor(self.color[1], self.color[2], self.color[3], self.color[4] or 1)
+        lg.rectangle("fill", 0, 0, self.width, self.height)
+        lg.setColor(1, 1, 1, 1)
     end
 
     if self.draw ~= nil then self:draw() end
@@ -113,7 +114,7 @@ function class:render()
         v:render()
     end
     
-    love.graphics.pop()
+    lg.pop()
 end
 
 function class:resize(w, h)

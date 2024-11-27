@@ -1,5 +1,7 @@
 -- Scroll.lua: Draws first child in canvas and adds scrolling if child dimensions are larger
 inherit("Element")
+local lg = love.graphics
+
 function class:init(options, elements)
     class.super.init(self, options, elements)
 
@@ -29,12 +31,12 @@ function class:draw_above()
 end
 
 function class:render()
-    love.graphics.push("all")
-    love.graphics.stencil(function() love.graphics.rectangle("fill", self.x + self.offset_x, self.y + self.offset_y, self.width, self.height) end, "replace", 1)
-    love.graphics.setStencilTest("greater", 0)
-    love.graphics.translate(self.scroll_x, self.scroll_y)
+    lg.push("all")
+    lg.stencil(function() lg.rectangle("fill", self.x + self.offset_x, self.y + self.offset_y, self.width, self.height) end, "replace", 1)
+    lg.setStencilTest("greater", 0)
+    lg.translate(self.scroll_x, self.scroll_y)
     class.super.render(self)
-    love.graphics.pop()
+    lg.pop()
     self:draw_above()
 end
 
