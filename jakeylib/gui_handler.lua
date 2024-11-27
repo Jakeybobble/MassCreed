@@ -1,4 +1,5 @@
 local module = {}
+local lerp = require("math.lerp")
 
 function module.mouse_inside(element)
     local m_x, m_y = love.mouse.getPosition()
@@ -32,6 +33,27 @@ function module.handle_click(element)
             break
         end
     end
+end
+
+module.scroll_value = 0
+local scroll_to = 0
+local scroll_moved = false
+local sensitivity = 23
+
+-- Mouse wheel stuff
+function module.update_scroll()
+    if scroll_moved then
+        scroll_moved = false
+    else
+        scroll_to = 0
+    end
+
+    module.scroll_value = lerp(module.scroll_value, scroll_to, 0.5)
+end
+
+function module.wheelmoved(x, y)
+    scroll_moved = true
+    scroll_to = y * sensitivity
 end
 
 return module

@@ -1,4 +1,6 @@
-local init = require("init_libraries") -- Initiaizes pretty much everything... I hope
+local init = require("init_libraries")
+local gui_handler = require("jakeylib/gui_handler")
+
 current_view = nil
 
 global_rooms = {}
@@ -37,6 +39,9 @@ function love.draw()
 end
 
 function love.update(dt)
+
+    gui_handler.update_scroll()
+
     if current_view then
         current_view:update(dt)
     end
@@ -71,4 +76,8 @@ function love.keypressed(key)
     if current_view then
         current_view:resize(w, h)
     end
+end
+
+function love.wheelmoved(x, y)
+    gui_handler.wheelmoved(x, y)
 end

@@ -87,7 +87,7 @@ function class:init()
         -- Scroll -- TODO: Add horizontal Scroll example
         ui.Scroll:new({x = 64*6, width=64, height=64*3}, {
             ui.ElementList:new({mode="shrink", inherit_size="both", orientation="vertical"}, {
-                multi_new(ui.Panel, 6, {inherit_size="width", height=64}, nil)
+                multi_new(ui.ColorButton, 6, {inherit_size="width", height=64}, nil)
             })
         })
 
