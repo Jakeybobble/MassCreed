@@ -16,13 +16,14 @@ end
 function class:draw()
 
     if not gui_handler.mouse_inside(self) then do return end end
-    local h = self.elements[1].height
+    local h = (self.orientation == "vertical" and self.elements[1].height) or self.elements[1].width
+    
 
     self.scroll_y = self.scroll_y + gui_handler.scroll_value
 
     -- Clamping scroll value
-    if h > self.height then
-    local min_offset = self.height - h
+    if h > ((self.orientation == "vertical" and self.height) or self.width) then
+        local min_offset = ((self.orientation == "vertical" and self.height) or self.width) - h
         self.scroll_y = math.min(math.max(self.scroll_y, min_offset), 0)
     else
         self.scroll_y = 0
@@ -30,13 +31,25 @@ function class:draw()
 
     -- Scrollbar
     if self.scrollbar == true then
-        local bar_height = (self.height / h) * self.height
-        if bar_height < self.height then
-            local bar_y = (-self.scroll_y / (h - self.height)) * (self.height - bar_height)
-            local bar_width = 2
-            lg.setColor(1, 1, 1, 0.5)
-            lg.rectangle("fill", self.width - bar_width, bar_y, bar_width, bar_height)
-            lg.setColor(1,1,1,1)
+        -- Lazy code alert -- TODO: Refactor for nicer code
+        if self.orientation == "vertical" then
+            local bar_height = (self.height / h) * self.height
+            if bar_height < self.height then
+                local bar_y = (-self.scroll_y / (h - self.height)) * (self.height - bar_height)
+                local bar_width = 2
+                lg.setColor(1, 1, 1, 0.5)
+                lg.rectangle("fill", self.width - bar_width, bar_y, bar_width, bar_height)
+                lg.setColor(1,1,1,1)
+            end
+        else
+            local bar_width = (self.width / h) * self.width
+            if bar_width < self.width then
+                local bar_x = (-self.scroll_y / (h - self.width)) * (self.width - bar_width)
+                local bar_height = 2
+                lg.setColor(1, 1, 1, 0.5)
+                lg.rectangle("fill", bar_x, self.height - bar_height, bar_width, bar_height)
+                lg.setColor(1,1,1,1)
+            end
         end
     end
 
@@ -50,14 +63,17 @@ function class:render()
     lg.translate(self.x + self.offset_x, self.y + self.offset_y)
     self.global_x, self.global_y = lg.transformPoint(0,0)
 
-    
-
     lg.push("all")
 
     lg.stencil(function() lg.rectangle("fill", 0, 0, self.width, self.height) end, "replace", 1)
     lg.setStencilTest("greater", 0)
-
-    lg.translate(self.scroll_x, self.scroll_y)
+    
+    if self.orientation == "vertical" then
+        lg.translate(0, self.scroll_y)
+    else
+        lg.translate(self.scroll_y, 0)
+    end
+    
     child:render()
 
     lg.pop()

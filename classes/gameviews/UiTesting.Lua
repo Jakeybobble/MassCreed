@@ -89,6 +89,12 @@ function class:init()
             ui.ElementList:new({mode="shrink", inherit_size="both", orientation="vertical"}, {
                 multi_new(ui.ColorButton, 6, {inherit_size="width", height=64}, nil)
             })
+        }),
+
+        ui.Scroll:new({x = 64*7, width=64, height=64*3, scrollbar = true, orientation="horizontal"}, {
+            ui.ElementList:new({mode="shrink", inherit_size="both", orientation="horizontal"}, {
+                multi_new(ui.ColorButton, 6, {inherit_size="height", width=32}, nil)
+            })
         })
 
     })
