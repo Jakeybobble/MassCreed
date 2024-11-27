@@ -14,11 +14,13 @@ function class:init(options, elements)
 end
 
 function class:draw()
+
     if not gui_handler.mouse_inside(self) then do return end end
     local h = self.elements[1].height
 
     self.scroll_y = self.scroll_y + gui_handler.scroll_value
 
+    -- Clamping scroll value
     if h > self.height then
     local min_offset = self.height - h
         self.scroll_y = math.min(math.max(self.scroll_y, min_offset), 0)
@@ -26,11 +28,16 @@ function class:draw()
         self.scroll_y = 0
     end 
 
+    -- Scrollbar
     if self.scrollbar == true then
         local bar_height = (self.height / h) * self.height
-        lg.rectangle("fill", 0, 0, 10, 10)
-
-
+        if bar_height < self.height then
+            local bar_y = (-self.scroll_y / (h - self.height)) * (self.height - bar_height)
+            local bar_width = 2
+            lg.setColor(1, 1, 1, 0.5)
+            lg.rectangle("fill", self.width - bar_width, bar_y, bar_width, bar_height)
+            lg.setColor(1,1,1,1)
+        end
     end
 
 end
@@ -43,6 +50,8 @@ function class:render()
     lg.translate(self.x + self.offset_x, self.y + self.offset_y)
     self.global_x, self.global_y = lg.transformPoint(0,0)
 
+    
+
     lg.push("all")
 
     lg.stencil(function() lg.rectangle("fill", 0, 0, self.width, self.height) end, "replace", 1)
@@ -50,10 +59,9 @@ function class:render()
 
     lg.translate(self.scroll_x, self.scroll_y)
     child:render()
-    
-    self:draw()
-    lg.pop()
 
+    lg.pop()
+    self:draw()
     lg.pop()
     
 end
