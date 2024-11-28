@@ -1,14 +1,22 @@
 -- DataCapsule.lua: Will instantiate children with a key value so that those values can be accessed
 inherit("Element")
 
-local function add_keys(element)
-    -- TODO: Recursive function adding all the values...
+local function add_keys(p, elements)
+    for _,child in pairs(elements) do
+        if child.key then
+            p.data_elements[child.key] = child
+            child.data_capsule = p -- Not sure if needed?
+        end
+        add_keys(p, child.elements)
+    end
 end
 
 function class:init(options, elements)
 
     class.super.init(self, options, elements)
-    
+
+    self.data_elements = {}
+    add_keys(self, elements)
     
 
 end
@@ -21,6 +29,6 @@ function class:render()
 end
 
 -- Get value by key
-function class:get(key)
-    
+function class:get(key) -- I don't know if I want to do this through a function.
+    return self.data_elements[key].value
 end

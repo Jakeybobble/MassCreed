@@ -7,10 +7,11 @@ function class:init(options, elements)
 
     
     self.value_type = "string" -- Types: string, number, char (boolean should be for a separate checkbox input)
-    self.value = nil -- The value which will be grabbed by DataCapsule
+
+    -- Todo: Don't have this start at string
+    self.value = options.value or "" -- The value which will be grabbed by DataCapsule
 
     self.selected = false
-    self.text = ""
 
 end
 
@@ -26,7 +27,7 @@ function class:draw()
     love.graphics.rectangle("line", 0, 0, self.width, self.height)
     love.graphics.setColor(1, 1, 1, 1)
 
-    love.graphics.printf(self.text, 0,0, self.width, "center")
+    love.graphics.printf(self.value, 0,0, self.width, "center")
     
 
 end
@@ -39,5 +40,5 @@ end
 
 function class:keypressed(key)
     -- TODO: Handle backspace, enter, etc...
-    self.text = self.text..key
+    self.value = self.value..key
 end

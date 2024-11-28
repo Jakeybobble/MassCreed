@@ -56,7 +56,7 @@ function class:init(options, elements)
 
     self.offset_x, self.offset_y = 0, 0 -- Were first a local variable in render(), might consider moving back
 
-    self.key = nil -- Key to be accessed from DataCapsule
+    self.key = options.key or nil -- Key to be accessed from DataCapsule
     self.data_capsule = nil
 
 end
