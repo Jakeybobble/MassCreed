@@ -13,6 +13,10 @@ end
 
 function module.handle_click(element)
     --print(element.class.name)
+    if module.selected_input then
+        module.selected_input.selected = false
+        module.selected_input = nil
+    end
 
     for i = #element.elements, 1, -1 do
         local child = element.elements[i]
@@ -54,6 +58,15 @@ end
 function module.wheelmoved(x, y)
     scroll_moved = true
     scroll_to = y * sensitivity
+end
+
+-- Selected element stuff
+module.selected_input = nil
+
+function module.keypressed(key)
+    if module.selected_input then
+        module.selected_input:keypressed(key)
+    end
 end
 
 return module

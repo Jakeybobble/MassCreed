@@ -13,6 +13,10 @@ end
 
 function class:init()
 
+    local mixin_test = {
+        test = function(self) print("Waow") end
+    }
+
     local white = {1, 1, 1, 0.2}
     local w, h = love.window.getMode()
     self.element = ui.Element:new({width=w, height=h, margins={13}}, {
@@ -95,6 +99,16 @@ function class:init()
             ui.ElementList:new({mode="shrink", inherit_size="both", orientation="horizontal"}, {
                 multi_new(ui.ColorButton, 6, {inherit_size="height", width=32}, nil)
             })
+        }),
+
+        -- DataCapsule and Input
+        ui.DataCapsule:new({x = 64*8}, {
+            ui.ElementList:new({mode="shrink", width = 64, orientation = "vertical"}, {
+                ui.Panel:new({key="output", height = 64, inherit_size="width"}),
+                ui.Panel:new({height = 64, inherit_size="width"}, {
+                    ui.Input:new({key="input", inherit_size="both", color={1,1,1,0.1}})
+                })
+            })
         })
 
     })
@@ -111,9 +125,12 @@ end
 
 function class:mousepressed(x, y, button, istouch)
     gui_handler.handle_click(self.element)
-    --print(gui_handler.mouse_inside(self.element.elements[1]))
 end
 
 function class:resize(w, h)
     self.element:resize(w,h)
+end
+
+function class:keypressed(key)
+    gui_handler.keypressed(key)
 end
