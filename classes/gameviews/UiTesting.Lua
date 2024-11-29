@@ -134,3 +134,7 @@ end
 function class:keypressed(key)
     gui_handler.keypressed(key)
 end
+
+function class:textinput(text)
+    gui_handler.textinput(text)
+end

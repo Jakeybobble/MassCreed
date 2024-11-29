@@ -1,6 +1,7 @@
 -- Input.lua: Value input, such as strings and numbers...
 inherit("Button")
 local gui_handler = require("jakeylib/gui_handler")
+local utf8 = require("utf8")
 
 function class:init(options, elements)
     class.super.init(self, options, elements)
@@ -40,5 +41,14 @@ end
 
 function class:keypressed(key)
     -- TODO: Handle backspace, enter, etc...
-    self.value = self.value..key
+    if key == "backspace" then
+        local byteoffset = utf8.offset(self.value, -1)
+        if byteoffset then
+            self.value = string.sub(self.value, 1, byteoffset - 1)
+        end
+    end
+end
+
+function class:textinput(text)
+    self.value = self.value..text
 end

@@ -9,6 +9,9 @@ function love.load()
     
     love.graphics.setBackgroundColor(0.157, 0.208, 0.251)
     love.graphics.setDefaultFilter("nearest", "nearest", 1)
+
+    love.keyboard.setKeyRepeat(true)
+
     init.init()
 
     --current_view = gameviews.Game:new()
@@ -62,6 +65,12 @@ function love.keypressed(key)
 
     if current_view then
         current_view:keypressed(key)
+    end
+ end
+
+ function love.textinput(text)
+    if current_view then
+        current_view:textinput(text)
     end
  end
 

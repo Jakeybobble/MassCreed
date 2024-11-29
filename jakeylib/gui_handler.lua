@@ -69,4 +69,10 @@ function module.keypressed(key)
     end
 end
 
+function module.textinput(text)
+    if module.selected_input then
+        module.selected_input:textinput(text)
+    end
+end
+
 return module
