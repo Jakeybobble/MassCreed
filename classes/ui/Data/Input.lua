@@ -14,6 +14,8 @@ function class:init(options, elements)
 
     self.selected = false
 
+    self.locked = options.locked or false
+
 end
 
 function class:draw()
@@ -35,8 +37,10 @@ end
 
 function class:on_click()
     class.super.on_click(self)
-    gui_handler.selected_input = self
-    self.selected = true
+    if self.locked == false then
+        gui_handler.selected_input = self
+        self.selected = true
+    end
 end
 
 function class:keypressed(key)
@@ -46,6 +50,10 @@ function class:keypressed(key)
         if byteoffset then
             self.value = string.sub(self.value, 1, byteoffset - 1)
         end
+    elseif key == "return" then
+        gui_handler.selected_input = nil
+        self.selected = false
+        -- TODO: Have the option to activate something in self.data_capsule if specified
     end
 end
 
