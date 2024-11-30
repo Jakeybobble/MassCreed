@@ -1,53 +1,12 @@
 local init = require("init_libraries")
 local gui_handler = require("jakeylib/gui_handler")
+local editor_settings = require("editor_settings")
 
 current_view = nil
 
 global_rooms = {}
 
 local selectable_views = {}
-
--- Returns preferred view from editor_settings.txt
-function get_init_view()
-    -- TODO: Always go to Game if fused
-    local fs = love.filesystem
-
-    local file_name = "editor_settings.txt"
-    local file = fs.getInfo(file_name)
-    local fall_back = false
-
-    local fall_back_view = gameviews.Game
-
-    if file == nil then
-        local success, message = fs.write(file_name, "preferred_view=Game")
-        if success then
-            print("Created new '"..file_name.."' in "..fs.getSaveDirectory())
-        else
-            print("File write in '"..fs.getSaveDirectory().."' failed. Falling back to default Game GameView.\nException message: "..message)
-            return fall_back_view
-        end
-    end
-
-    local lines = fs.lines(file_name)
-
-    -- Fill table with keys and values from editor_settings.txt
-    local t = {}
-    for line in lines do
-        local key, value = string.match(line, "(.+)=(.+)")
-        t[key] = value
-    end
-
-    -- Return view class if name in settings matches
-    if t.preferred_view then
-        for i, v in ipairs(selectable_views) do
-            if v.name == t.preferred_view then
-                return v
-            end
-        end
-    end
-
-    return fall_back_view
-end
 
 function love.load()
     
@@ -61,7 +20,7 @@ function love.load()
     -- Set what views can be selected in ViewSelector
     selectable_views = {gameviews.Game, gameviews.Editor, gameviews.UiTesting}
 
-    local view = get_init_view()
+    local view = editor_settings.get_init_view(selectable_views)
     current_view = view:new()
 
 end
@@ -89,6 +48,10 @@ end
 
 function love.update(dt)
 
+    if current_view == nil then
+        current_view = gameviews.ViewSelector:new(selectable_views)
+    end
+
     gui_handler.update_scroll()
 
     if current_view then
@@ -98,6 +61,9 @@ end
 
 function love.keypressed(key)
     -- TODO: Move to ViewSelector view when pressing P
+    if key == "p" then
+        current_view = nil
+    end
 
     if current_view then
         current_view:keypressed(key)
