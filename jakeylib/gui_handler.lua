@@ -23,6 +23,7 @@ function module.handle_click(element)
         if module.mouse_inside(child) then
             -- Put that element last
             if element.frontable then
+                -- Todo: Old feature - Might need to refresh list here
                 element.elements[i], element.elements[#element.elements] =
                 element.elements[#element.elements], element.elements[i]
             end
