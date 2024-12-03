@@ -3,13 +3,29 @@ local gui_handler = require("jakeylib/gui_handler")
 
 function class:init()
 
+    --love.graphics.setBackgroundColor(1, 0.827, 0) -- Yellow
+    love.graphics.setBackgroundColor(0.157, 0.208, 0.251)
+
     -- Each layer...
     self.layers = {}
 
     self.layers_list = nil
 
     local w, h = love.window.getMode()
-    self.element = ui.Element:new({width=w, height=h}, {
+
+    self.element = ui.Element({width=w, height=h}, {
+        -- Layers panel
+        ui.JakeyPanel({
+            title = "Layers:",
+            x = 50, y = 100,
+            width = 256, height = 128,
+
+        })
+    })
+
+
+    --[[
+        self.element = ui.Element:new({width=w, height=h}, {
         -- Layers panel
         ui.Panel:new({width=200, height=300}, {
             ui.ElementList:new({inherit_size = "both", orientation = "vertical"},{
@@ -37,6 +53,8 @@ function class:init()
             
         })
     })
+    ]]
+    
 
 end
 

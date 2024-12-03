@@ -13,9 +13,7 @@ end
 
 function class:init()
 
-    local mixin_test = {
-        test = function(self) print("Waow") end
-    }
+    love.graphics.setBackgroundColor(0.157, 0.208, 0.251)
 
     local white = {1, 1, 1, 0.2}
     local w, h = love.window.getMode()

@@ -1,6 +1,9 @@
 inherit("GameView")
 
 function class:init()
+
+    love.graphics.setBackgroundColor(0.157, 0.208, 0.251)
+
     self.current_room = global_rooms["TestRoom"]:new()
     self.current_camera = classes["Camera"]:new(0,0)
 end
