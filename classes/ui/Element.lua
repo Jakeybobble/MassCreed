@@ -76,7 +76,7 @@ function class:set_transform()
 
         margins = self.parent.combined_margins
         self.combined_margins = {self.margins[2] + margins[1], self.margins[3] + margins[2]}
-    
+
     end
 
     if self.list_index ~= nil then
@@ -84,12 +84,12 @@ function class:set_transform()
         x, y, w, h = _x, _y, _w, _h
     else
         if self.inherit_size == "both" then
-            w = self.parent.width - x - self.parent.combined_margins[1]
-            h = self.parent.height - y - self.parent.combined_margins[2]
+            w = self.parent.width - x - self.parent.combined_margins[1] - self.parent.margins[2]
+            h = self.parent.height - y - self.parent.combined_margins[2] - self.parent.margins[3]
         elseif self.inherit_size == "width" then
-            w = self.parent.width - x - self.parent.combined_margins[1]
+            w = self.parent.width - x - self.parent.combined_margins[1] - self.parent.margins[2]
         elseif self.inherit_size == "height" then
-            h = self.parent.height - y - self.parent.combined_margins[2]
+            h = self.parent.height - y - self.parent.combined_margins[2] - self.parent.margins[3]
         end
     end
     self.x, self.y = x, y
