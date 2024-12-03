@@ -16,6 +16,8 @@ function class:init(options, elements)
 
     self.locked = options.locked or false
 
+    -- TODO: Placeholder/default text
+
 end
 
 function class:draw()
