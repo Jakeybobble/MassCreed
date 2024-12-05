@@ -116,7 +116,15 @@ function class:init()
                     ui.Panel:new({inherit_size="both"})
                 })
             })
-        })
+        }),
+
+        -- Draggable window
+        ui.ElementList({x = 64*7, y = 64*4, width = 64*2, height = 64*2, orientation="vertical"}, {
+            ui.DraggableArea({inherit_size="width", height=32}, {
+                ui.Panel({inherit_size="both"})
+            }),
+            ui.Panel({inherit_size="both"})
+        }),
 
     })
 end
