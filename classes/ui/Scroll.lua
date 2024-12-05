@@ -30,6 +30,7 @@ function class:draw()
     end 
 
     -- Scrollbar
+    -- TODO: Move scrollbar drawing to separate method
     if self.scrollbar == true then
         -- Lazy code alert -- TODO: Refactor for nicer code
         if self.orientation == "vertical" then

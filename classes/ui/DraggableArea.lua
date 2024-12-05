@@ -10,3 +10,7 @@ function class:init(options, elements)
     self.parent_depth = options.parent_depth or 1
 
 end
+
+function class:hovered()
+    
+end

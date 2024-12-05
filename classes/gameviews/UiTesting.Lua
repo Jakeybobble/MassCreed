@@ -137,7 +137,7 @@ function class:draw()
 end
 
 function class:update(dt)
-
+    gui_handler.handle_draggable(self.element)
 end
 
 function class:mousepressed(x, y, button, istouch)

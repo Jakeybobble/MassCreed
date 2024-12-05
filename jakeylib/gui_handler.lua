@@ -77,6 +77,33 @@ function module.textinput(text)
 end
 
 -- Draggable stuff
--- TODO
+
+local function get_draggable(element) -- Finds first draggable element
+    for i = #element.elements, 1, -1 do
+        local child = element.elements[i]
+        if module.mouse_inside(child) then
+            if child.name == "DraggableArea" then
+                return child
+            end
+
+            local result = get_draggable(child)
+            if result then
+                return result
+            end
+        end
+    end
+    return nil
+end
+
+local default_cursor = love.mouse.getSystemCursor("arrow")
+local move_cursor = love.mouse.getSystemCursor("sizeall")
+
+function module.handle_draggable(element)
+    
+    local draggable = get_draggable(element)
+    love.mouse.setCursor((draggable and move_cursor) or default_cursor)
+    if draggable then draggable:hovered() end
+    
+end
 
 return module
