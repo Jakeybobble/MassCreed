@@ -59,7 +59,6 @@ function class:render()
     if not self.visible then do return end end
     local child = self.elements[1]
     self:set_transform()
-    self.width=100;
     lg.push()
     lg.translate(self.x + self.offset_x, self.y + self.offset_y)
     self.global_x, self.global_y = lg.transformPoint(0,0)
