@@ -107,6 +107,15 @@ function class:init()
                     ui.Input:new({key="input", inherit_size="both", color={1,1,1,0.1}})
                 })
             })
+        }),
+        
+        -- Nested inheriteds in margins test. All children should share size.
+        ui.Panel:new({x = 64*5, y = 64*4, width=64*2, height=64*2, margins={10}}, {
+            ui.Panel:new({inherit_size="both"}, {
+                ui.Panel:new({inherit_size="both"}, {
+                    ui.Panel:new({inherit_size="both"})
+                })
+            })
         })
 
     })
