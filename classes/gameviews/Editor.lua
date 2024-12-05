@@ -19,11 +19,20 @@ function class:init()
             title = "Layers:",
             x = 50, y = 100,
             width = 256, height = 128,
-            margins = {10, 10}
+            margins = {10, 10, 10, 10}
         }, {
-            ui.ElementList:new({
-                inherit_size = "both", orientation = "vertical",
-                color = {1, 0, 0, 0.5}
+            ui.JakeyPanel({
+                inherit_size="both", title="frick"
+            }, {
+                ui.JakeyPanel({
+                    inherit_size="both", title="frick"
+                }, {
+                    ui.JakeyPanel({
+                        inherit_size="both", title="frick"
+                    }, {
+                        
+                    })
+                })
             })
         })
     })

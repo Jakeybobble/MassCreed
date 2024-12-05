@@ -59,6 +59,7 @@ function class:render()
     if not self.visible then do return end end
     local child = self.elements[1]
     self:set_transform()
+    self.width=100;
     lg.push()
     lg.translate(self.x + self.offset_x, self.y + self.offset_y)
     self.global_x, self.global_y = lg.transformPoint(0,0)
@@ -78,6 +79,13 @@ function class:render()
 
     lg.pop()
     self:draw()
+
+    if self.color then
+        lg.setColor(self.color)
+        lg.rectangle("fill", 0, 0, self.width, self.height)
+        lg.setColor(1, 1, 1)
+    end
+
     lg.pop()
     
 end

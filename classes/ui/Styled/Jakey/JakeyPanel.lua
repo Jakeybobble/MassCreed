@@ -5,7 +5,7 @@ local lg = love.graphics
 
 function class:init(options, elements)
     class.super.init(self, options, elements)
-    self.title = options.title
+    self.title = options.title or ""
     self.font = fonts.get("assets/fonts/SairaCondensed-Medium.ttf")
 
 
