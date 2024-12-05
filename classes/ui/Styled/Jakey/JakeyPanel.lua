@@ -21,7 +21,7 @@ function class:draw()
     
 
     lg.setColor(1,1,1)
-    lg.setLineWidth(3)
+    lg.setLineWidth(2)
 
     local h = self.font:getHeight()
     local o = 5

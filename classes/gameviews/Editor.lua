@@ -1,5 +1,6 @@
 inherit("GameView")
 local gui_handler = require("jakeylib/gui_handler")
+local lg = love.graphics
 
 function class:init()
 
@@ -21,19 +22,7 @@ function class:init()
             width = 256, height = 128,
             margins = {10, 10, 10, 10}
         }, {
-            ui.JakeyPanel({
-                inherit_size="both", title="frick"
-            }, {
-                ui.JakeyPanel({
-                    inherit_size="both", title="frick"
-                }, {
-                    ui.JakeyPanel({
-                        inherit_size="both", title="frick"
-                    }, {
-                        
-                    })
-                })
-            })
+
         })
     })
 
@@ -92,6 +81,15 @@ function class:draw()
     end
 
     self.element:render()
+
+    local w, h = love.window.getMode()
+    
+    -- Cool border
+    lg.setColor(0.2, 0.2, 0.2)
+    lg.setLineWidth(4)
+    lg.rectangle("line", 0,0, w,h)
+    lg.setLineWidth(1)
+    lg.setColor(1,1,1)
 end
 
 function class:update(dt)
