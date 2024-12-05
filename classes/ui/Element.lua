@@ -67,15 +67,11 @@ function class:set_transform()
     local x, y = self.x, self.y
     local w, h = self.width, self.height
 
-    local offset_x, offset_y = 0, 0
-
     if self.parent then
-        self.offset_x = self.parent.margins[4]
-        self.offset_y = self.parent.margins[1]
-
-        offset_x, offset_y = self.parent.combined_margins[1], self.parent.combined_margins[2]
-        self.combined_margins = {self.margins[2] + offset_x, self.margins[3] + offset_y}
-
+        local margins, combined = self.parent.margins, self.parent.combined_margins
+        
+        self.offset_x, self.offset_y = margins[4], margins[1]
+        self.combined_margins = {self.margins[2] + combined[1], self.margins[3] + combined[2]}
     end
 
     if self.list_index ~= nil then
