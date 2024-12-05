@@ -123,7 +123,9 @@ function class:init()
             ui.DraggableArea({inherit_size="width", height=32}, {
                 ui.Panel({inherit_size="both"})
             }),
-            ui.Panel({inherit_size="both"})
+            ui.Panel({inherit_size="both", margins={1, 5}}, {
+                ui.Text({text="^ Draggable ^", inherit_size="width", height = 32, align="center", text_color={0.5, 0.5, 0.5}})
+            })
         }),
 
     })
