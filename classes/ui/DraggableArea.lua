@@ -6,11 +6,22 @@ local gui_handler = require("jakeylib/gui_handler")
 function class:init(options, elements)
     class.super.init(self, options, elements)
 
-    -- Which parent within the same tree (backwards) to move
-    self.parent_depth = options.parent_depth or 1
+    self.dragging = false
+    self.last_mouse_pos = nil
 
 end
 
-function class:hovered()
-    
+local lm = love.mouse
+function class:move()
+    local mouse_x, mouse_y = lm.getPosition()
+
+    if not self.last_mouse_pos then
+        self.last_mouse_pos = { mouse_x, mouse_y }
+    end
+
+    self.parent.x = self.parent.x + mouse_x - self.last_mouse_pos[1]
+    self.parent.y = self.parent.y + mouse_y - self.last_mouse_pos[2]
+
+    self.last_mouse_pos = {mouse_x, mouse_y}
+
 end

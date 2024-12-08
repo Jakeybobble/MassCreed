@@ -1,5 +1,6 @@
 local module = {}
 local lerp = require("math.lerp")
+local lm = love.mouse
 
 function module.mouse_inside(element)
     local m_x, m_y = love.mouse.getPosition()
@@ -98,11 +99,27 @@ end
 local default_cursor = love.mouse.getSystemCursor("arrow")
 local move_cursor = love.mouse.getSystemCursor("sizeall")
 
+local dragged_element = nil
+
 function module.handle_draggable(element)
-    
-    local draggable = get_draggable(element)
-    love.mouse.setCursor((draggable and move_cursor) or default_cursor)
-    if draggable then draggable:hovered() end
+
+    -- TODO: Store draggable in variable and draggable:move() until letting go of cursor
+
+    local hovered_draggable = get_draggable(element)
+
+    if dragged_element then
+        if lm.isDown(1) then
+            dragged_element:move(grabbed_x, grabbed_y)
+        else
+            dragged_element.last_mouse_pos = nil
+            dragged_element = nil
+        end
+    else
+        dragged_element = hovered_draggable
+    end
+
+    lm.setGrabbed((dragged_element and true) or false)
+    love.mouse.setCursor((hovered_draggable and move_cursor) or default_cursor)
     
 end
 
