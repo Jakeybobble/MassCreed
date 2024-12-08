@@ -25,6 +25,10 @@ function module.handle_click(element)
 
         if module.mouse_inside(child) then
 
+            if element.frontable then
+                element:front()
+            end
+
             if child.on_click then
                 child:on_click()
                 break

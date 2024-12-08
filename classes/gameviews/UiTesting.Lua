@@ -119,7 +119,7 @@ function class:init()
         }),
 
         -- Draggable window
-        ui.ElementList({x = 64*7, y = 64*4, width = 64*2, height = 64*2, orientation="vertical"}, {
+        ui.ElementList({x = 64*7, y = 64*4, width = 64*2, height = 64*2, orientation="vertical", frontable = true}, {
             ui.DraggableArea({inherit_size="width", height=32}, {
                 ui.Panel({inherit_size="both"})
             }),
@@ -128,7 +128,7 @@ function class:init()
             })
         }),
         -- Another one, overlapping
-        ui.ElementList({x = 64*8, y = 64*5, width = 64*2, height = 64*2, orientation="vertical"}, {
+        ui.ElementList({x = 64*8, y = 64*5, width = 64*2, height = 64*2, orientation="vertical", frontable = true}, {
             ui.DraggableArea({inherit_size="width", height=32}, {
                 ui.Panel({inherit_size="both"})
             }),

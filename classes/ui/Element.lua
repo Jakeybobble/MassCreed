@@ -15,6 +15,8 @@ function class:init(options, elements)
     
     self.depth = 0
 
+    self.frontable = options.frontable or false
+
     if options.enabled ~= nil then
         self.enabled = options.enabled
     else
