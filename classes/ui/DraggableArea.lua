@@ -9,6 +9,8 @@ function class:init(options, elements)
     self.dragging = false
     self.last_mouse_pos = nil
 
+    -- Todo: Add parent depth
+
 end
 
 local lm = love.mouse

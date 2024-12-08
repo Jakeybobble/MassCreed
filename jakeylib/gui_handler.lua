@@ -21,7 +21,10 @@ function module.handle_click(element)
 
     for i = #element.elements, 1, -1 do
         local child = element.elements[i]
+        if child.enabled == false then goto continue end
+
         if module.mouse_inside(child) then
+            
             -- Put that element last
             if element.frontable then
                 -- Todo: Old feature - Might need to refresh list here
@@ -38,6 +41,8 @@ function module.handle_click(element)
             
             break
         end
+
+        ::continue::
     end
 end
 
@@ -82,6 +87,8 @@ end
 local function get_draggable(element) -- Finds first draggable element
     for i = #element.elements, 1, -1 do
         local child = element.elements[i]
+        if child.enabled == false then goto continue end -- Might not be necessary
+
         if module.mouse_inside(child) then
             if child.name == "DraggableArea" then
                 return child
@@ -92,6 +99,8 @@ local function get_draggable(element) -- Finds first draggable element
                 return result
             end
         end
+
+        ::continue::
     end
     return nil
 end

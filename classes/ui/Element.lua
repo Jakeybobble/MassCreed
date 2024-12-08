@@ -14,9 +14,15 @@ function class:init(options, elements)
     self.width, self.height = options.width or 0, options.height or 0
 
     self.frontable = options.frontable or false
+    
     self.depth = 0
 
-    self.visible = true
+    if options.enabled ~= nil then
+        self.enabled = options.enabled
+    else
+        self.enabled = true
+    end
+    
     self.color = options.color or nil
 
     for k, v in pairs(self.elements) do
@@ -93,7 +99,7 @@ end
 
 function class:render()
     
-    if not self.visible then do return end end
+    if self.enabled == false then do return end end
 
     self:set_transform()
 

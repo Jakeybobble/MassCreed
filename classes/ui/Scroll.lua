@@ -57,7 +57,7 @@ function class:draw()
 end
 
 function class:render()
-    if not self.visible then do return end end
+    if self.enabled == false then do return end end
     local child = self.elements[1]
     self:set_transform()
     lg.push()
