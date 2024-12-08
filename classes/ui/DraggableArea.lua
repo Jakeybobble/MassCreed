@@ -9,13 +9,27 @@ function class:init(options, elements)
     self.dragging = false
     self.last_mouse_pos = nil
 
-    -- Todo: Add parent depth
+    -- How far up the tree the parent to move is. 0 is self.
+    self.parent_depth = options.parent_depth or 1
+    
+    --self.moving_parent = (self.parent_depth == 0 and self) or self:get_depth_parent(self, self.parent_depth)
+    --print(self.moving_parent)
+    self.moving_parent = nil
 
+end
+
+function class:get_depth_parent(element, depth)
+    if depth == 0 then
+        return element
+    end
+    return self:get_depth_parent(element.parent, depth - 1)
 end
 
 local lm = love.mouse
 function class:move()
-
+    if self.moving_parent == nil then
+        self.moving_parent = self:get_depth_parent(self, self.parent_depth)
+    end
     -- TODO: Clamp to prevent windows getting stuck...
 
     local mouse_x, mouse_y = lm.getPosition()
@@ -24,8 +38,8 @@ function class:move()
         self.last_mouse_pos = { mouse_x, mouse_y }
     end
 
-    self.parent.x = self.parent.x + mouse_x - self.last_mouse_pos[1]
-    self.parent.y = self.parent.y + mouse_y - self.last_mouse_pos[2]
+    self.moving_parent.x = self.moving_parent.x + mouse_x - self.last_mouse_pos[1]
+    self.moving_parent.y = self.moving_parent.y + mouse_y - self.last_mouse_pos[2]
 
     self.last_mouse_pos = {mouse_x, mouse_y}
 

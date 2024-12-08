@@ -37,11 +37,14 @@ function class:init()
                 }),
                 -- Buttons
                 ui.ElementList({
-                    inherit_size="width", height=32,
+                    inherit_size="width", height=36, spacing=5,
                     orientation="horizontal", mode="fit",
-                    color={0,0,0}
+                    color={0,0,0},
+                    margins={5,5}
                 }, {
                     -- 
+                    ui.ColorButton({inherit_size="height", text="New Layer..."}),
+                    ui.ColorButton({inherit_size="height"})
                 })
             })
         }),
