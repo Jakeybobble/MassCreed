@@ -13,17 +13,34 @@ function class:init()
     self.layers_list = nil
 
     local w, h = love.window.getMode()
-
+    
     self.element = ui.Element({width=w, height=h}, {
-        -- Layers panel
-        ui.JakeyPanel({
-            title = "Layers:",
-            x = 50, y = 100,
-            width = 256, height = 128,
-            margins = {10, 10, 10, 10}
-        }, {
+        
+        -- Windows
+        ui.Element({inherit_size="both"}, {
+            -- Layers panel
+            ui.ElementList({x = 50, y = 100, width = 256, height = 128, orientation = "v", frontable = true}, {
+                ui.DraggableArea({
+                    inherit_size="width", height=32
+                }),
+                ui.JakeyPanel({
+                    title = "Layers:",
+                    inherit_size = "both",
+                    margins = {10, 10, 10, 10}
+                }, {
+        
+                })
+            })
+        }),
+        -- Hotbar (TODO)
+        ui.Element({inherit_size="both"}, {
+
+        }),
+        -- Pop-ups (TODO)
+        ui.Element({inherit_size="both"}, {
 
         })
+        
     })
 
 
@@ -93,7 +110,7 @@ function class:draw()
 end
 
 function class:update(dt)
-
+    gui_handler.handle_draggable(self.element)
 end
 
 function class:keypressed(key)

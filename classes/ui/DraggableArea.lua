@@ -15,6 +15,9 @@ end
 
 local lm = love.mouse
 function class:move()
+
+    -- TODO: Clamp to prevent windows getting stuck...
+
     local mouse_x, mouse_y = lm.getPosition()
 
     if not self.last_mouse_pos then
