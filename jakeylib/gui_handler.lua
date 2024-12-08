@@ -12,19 +12,39 @@ function module.mouse_inside(element)
     return false
 end
 
-function module.handle_click(element)
-    --print(element.class.name)
+function module.handle_click(element, depth)
+    
+    -- IMPORTANT TODO: Update this function to return first clickable instead
+    -- Currently, multiple buttons on separate layers can be clicked at once.
+    -- Make sure that it also returns a value that helps decide whether the click is in the world (behind) or in the ui
+
+    -- Debug printing
+    local debug = false
+    if debug then
+        if depth then
+            depth = depth + 1
+        else
+            depth = 0
+        end
+
+        local spaces = ""
+        for i=1, depth do
+            spaces = spaces.."  "
+        end
+        print(spaces..element.name, element.width..'x'..element.height, #element.elements)
+    end
+
+    -- Set selected input box
     if module.selected_input then
         module.selected_input.selected = false
         module.selected_input = nil
     end
 
+    -- Recursively iterate through elements to find clickable/frontable
     for i = #element.elements, 1, -1 do
         local child = element.elements[i]
         if child.enabled == false then goto continue end
-
         if module.mouse_inside(child) then
-
             if element.frontable then
                 element:front()
             end
@@ -34,9 +54,11 @@ function module.handle_click(element)
                 break
             end
 
-            module.handle_click(child)
+            module.handle_click(child, depth)
             
-            break
+            if child.click_passthrough == nil then
+                break
+            end
         end
 
         ::continue::

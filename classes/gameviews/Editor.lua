@@ -17,27 +17,40 @@ function class:init()
     self.element = ui.Element({width=w, height=h}, {
         
         -- Windows
-        ui.Element({inherit_size="both"}, {
+        ui.Element({inherit_size="both", click_passthrough=true}, {
             -- Layers panel
-            ui.ElementList({x = 50, y = 100, width = 256, height = 128, orientation = "v", frontable = true}, {
+            ui.ElementList({x = 50, y = 100, width = 200, mode="shrink", orientation = "v", frontable = true}, {
                 ui.DraggableArea({
                     inherit_size="width", height=32
                 }),
                 ui.JakeyPanel({
                     title = "Layers:",
-                    inherit_size = "both",
-                    margins = {10, 10, 10, 10}
+                    inherit_size = "width", height=224,
+                    margins = {10, 10, 10, 10},
                 }, {
-        
+                    ui.Scroll({inherit_size="both"}, {
+                        ui.ElementList({orientation="v", mode="shrink", inherit_size="both", init_func = function(e) self.layers_list = e end}, {
+                            -- Layers go here
+                        })
+                    })
+                    
+                }),
+                -- Buttons
+                ui.ElementList({
+                    inherit_size="width", height=32,
+                    orientation="horizontal", mode="fit",
+                    color={0,0,0}
+                }, {
+                    -- 
                 })
             })
         }),
         -- Hotbar (TODO)
-        ui.Element({inherit_size="both"}, {
+        ui.Element({inherit_size="both", click_passthrough=true}, {
 
         }),
         -- Pop-ups (TODO)
-        ui.Element({inherit_size="both"}, {
+        ui.Element({inherit_size="both", enabled=false}, {
 
         })
         
