@@ -127,6 +127,15 @@ function class:init()
                 ui.Text({text="^ Draggable ^", inherit_size="width", height = 32, align="center", text_color={0.5, 0.5, 0.5}})
             })
         }),
+        -- Another one, overlapping
+        ui.ElementList({x = 64*8, y = 64*5, width = 64*2, height = 64*2, orientation="vertical"}, {
+            ui.DraggableArea({inherit_size="width", height=32}, {
+                ui.Panel({inherit_size="both"})
+            }),
+            ui.Panel({inherit_size="both", margins={1, 5}}, {
+                ui.Text({text="^ Draggable ^", inherit_size="width", height = 32, align="center", text_color={0.5, 0.5, 0.5}})
+            })
+        }),
 
     })
 end

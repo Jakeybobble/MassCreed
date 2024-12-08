@@ -12,8 +12,6 @@ function class:init(options, elements)
 
     self.x, self.y = options.x or 0, options.y or 0
     self.width, self.height = options.width or 0, options.height or 0
-
-    self.frontable = options.frontable or false
     
     self.depth = 0
 
@@ -132,3 +130,17 @@ end
 
 class.on_click = nil -- If an element should be able to be clickable without being a button, this should be changed.
 class.init_func = nil
+
+-- Put element at top of parent.elements
+function class:front()
+    -- TODO: Refresh list values if needed, or possibly add a dirty flag to elements
+    local p = self.parent
+    local index = 0
+    for i,v in ipairs(p.elements) do
+        if v == self then index = i end
+    end
+    table.remove(p.elements, index)
+    table.insert(p.elements, self)
+
+
+end

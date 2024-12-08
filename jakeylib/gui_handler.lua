@@ -24,13 +24,6 @@ function module.handle_click(element)
         if child.enabled == false then goto continue end
 
         if module.mouse_inside(child) then
-            
-            -- Put that element last
-            if element.frontable then
-                -- Todo: Old feature - Might need to refresh list here
-                element.elements[i], element.elements[#element.elements] =
-                element.elements[#element.elements], element.elements[i]
-            end
 
             if child.on_click then
                 child:on_click()
@@ -124,7 +117,10 @@ function module.handle_draggable(element)
             dragged_element = nil
         end
     else
-        dragged_element = hovered_draggable
+        if lm.isDown(1) and hovered_draggable then
+            dragged_element = hovered_draggable
+            dragged_element.parent:front() -- Update this if parent depth is added
+        end
     end
 
     lm.setGrabbed((dragged_element and true) or false)
