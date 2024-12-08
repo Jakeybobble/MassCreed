@@ -67,6 +67,8 @@ function class:init(options, elements)
 
     self.click_passthrough = options.click_passthrough
 
+    self.centered = options.centered or false
+
 end
 
 class.draw = nil
@@ -80,6 +82,11 @@ function class:set_transform()
         
         self.offset_x, self.offset_y = margins[4], margins[1]
         self.combined_margins = {self.margins[2] + combined[1], self.margins[3] + combined[2]}
+    end
+
+    if self.centered then
+        x = self.parent.width/2 - w/2
+        y = self.parent.height/2 - h/2
     end
 
     if self.list_index ~= nil then

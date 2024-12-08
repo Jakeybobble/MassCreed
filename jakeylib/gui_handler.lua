@@ -50,7 +50,7 @@ function module.handle_click(element, depth)
             end
 
             if child.on_click then
-                child:on_click()
+                child:on_click() -- Todo: Separate click and drag somehow
                 break
             end
 

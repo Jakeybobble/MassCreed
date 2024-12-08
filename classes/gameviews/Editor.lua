@@ -1,5 +1,6 @@
 inherit("GameView")
 local gui_handler = require("jakeylib/gui_handler")
+local editor_handler = require("jakeylib/editor_handler")
 local lg = love.graphics
 
 function class:init()
@@ -11,6 +12,7 @@ function class:init()
     self.layers = {}
 
     self.layers_list = nil
+    self.new_layer_prompt = nil
 
     local w, h = love.window.getMode()
     
@@ -43,7 +45,9 @@ function class:init()
                     margins={5,5}
                 }, {
                     -- 
-                    ui.ColorButton({inherit_size="height", text="New Layer..."}),
+                    ui.ColorButton({inherit_size="height", text="New Layer...", click = function(e)
+                        self:prompt_new_layer()
+                    end}),
                     ui.ColorButton({inherit_size="height"})
                 })
             })
@@ -52,46 +56,59 @@ function class:init()
         ui.Element({inherit_size="both", click_passthrough=true}, {
 
         }),
-        -- Pop-ups (TODO)
-        ui.Element({inherit_size="both", enabled=false}, {
-
+        -- Pop-ups
+        ui.Element({inherit_size="both", click_passthrough = true}, {
+            -- New Layer window
+            ui.DataCapsule({inherit_size="both", color={0.05,0,0.05,0.3}, init_func = function(e) self.new_layer_prompt = e end, enabled = false}, {
+                ui.JakeyPanel({
+                    title = "Add a new layer...",
+                    width = 640, height = 400,
+                    margins = {20},
+                    centered = true,
+                }, {
+                    ui.JakeyPanel({
+                        width = 256, inherit_size="height",
+                    }, {
+                        ui.Scroll({inherit_size="both"}, {
+                            ui.ElementList({
+                                orientation="vertical", inherit_size="width", mode = "shrink", init_func = function(e) self:init_layer_presets(e) end,
+                                margins={6}
+                            }, {
+    
+                            })
+                        })
+                        
+                    })
+                })
+            })
         })
         
     })
-
-
-    --[[
-        self.element = ui.Element:new({width=w, height=h}, {
-        -- Layers panel
-        ui.Panel:new({width=200, height=300}, {
-            ui.ElementList:new({inherit_size = "both", orientation = "vertical"},{
-                ui.ElementList:new({inherit_size = "width",  height = 300-32, orientation = "vertical"}, {
-                    ui.Panel:new({inherit_size = "width", height = 50, text = "Layers"}),
-                    ui.Scroll:new({inherit_size="both"}, {
-                        ui.ElementList:new({margins={0,5}, mode="shrink", inherit_size = "both", orientation="vertical", init_func = function(e) self.layers_list = e end}, {
-                            -- Contains each layer...
-                            
-                        })
-                    })
-                }),
-                -- Buttons
-                ui.Panel:new({inherit_size="width", height=32}, {
-                    ui.ElementList:new({inherit_size="both", mode="fit", margins={5}}, {
-                        ui.ColorButton:new({text="Add...", inherit_size="height", click=function()
-                            print("TODO: Layer type selection dialog")
-
-                            end}),
-                    })
-                })
-            }
-        )
-
-            
-        })
-    })
-    ]]
     
 
+end
+
+function class:init_layer_presets(list_element)
+    for k,layer_type in pairs(registered_layers) do
+        local element = ui.Panel({
+            inherit_size = "width", height = 64
+        }, {
+            ui.ElementList({inherit_size = "both"}, {
+                ui.Element({width = 64, height = 64}, {
+                    --ui.Panel({width = 48, height = 48, centered=true})
+                    ui.Image:new({width=48, height=48, image="assets/bip.png", centered=true}),
+                }),
+                ui.ElementList({margins={3,3,10,0}, inherit_size="both", orientation="vertical", mode="fit"}, {
+                    ui.Text({text=layer_type.type_name, inherit_size="width", align="left"}),
+                    ui.Text({text=layer_type.desc, inherit_size="width", align="left"})
+                })
+                
+            }),
+        })
+
+        list_element:add_child(element)
+
+    end
 end
 
 function class:new_layer()
@@ -105,6 +122,10 @@ function class:new_layer()
     self.layers_list:add_child(new_element)
     table.insert(self.layers, new_layer)
     
+end
+
+function class:prompt_new_layer()
+    self.new_layer_prompt.enabled = true
 end
 
 function class:draw()

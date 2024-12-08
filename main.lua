@@ -1,12 +1,15 @@
 local init = require("init_libraries")
 local gui_handler = require("jakeylib/gui_handler")
 local editor_settings = require("editor_settings")
+local editor_handler = require("jakeylib.editor_handler")
 
 current_view = nil
 
 global_rooms = {}
 
 local selectable_views = {}
+
+registered_layers = {}
 
 function love.load()
     

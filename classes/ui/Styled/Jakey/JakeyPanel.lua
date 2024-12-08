@@ -7,7 +7,7 @@ function class:init(options, elements)
     class.super.init(self, options, elements)
     self.title = options.title or ""
     self.font = fonts.get("assets/fonts/SairaCondensed-Medium.ttf")
-
+    self.border_color = options.border_color or {0.9, 0.9, 0.9}
 
 end
 
@@ -20,7 +20,7 @@ function class:draw()
     lg.rectangle("fill", 0,0, self.width, self.height)
     
 
-    lg.setColor(1,1,1)
+    lg.setColor(self.border_color)
     lg.setLineWidth(2)
 
     local h = self.font:getHeight()
