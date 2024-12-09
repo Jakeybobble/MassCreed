@@ -20,8 +20,6 @@ function class:init(options, elements)
 
     self.data_elements = {}
     add_keys(self, elements)
-
-    self.ping = options.ping -- Simply a function that data capsule children may call
     
 
 end

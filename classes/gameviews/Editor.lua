@@ -70,7 +70,7 @@ function class:init()
                         width = 256, inherit_size="height",
                     }, {
                         ui.Scroll({inherit_size="both"}, {
-                            ui.ElementList({
+                            ui.ListSelectable({
                                 orientation="vertical", inherit_size="width", mode = "shrink", init_func = function(e) self:init_layer_presets(e) end,
                                 margins={6}
                             }, {
@@ -93,9 +93,9 @@ function class:init_layer_presets(list_element)
         local element = ui.Panel({
             inherit_size = "width", height = 64,
         }, {
-            ui.Button({inherit_size="both",
+            ui.Button({inherit_size="both", value=#list_element.elements + 1,
                 click=function(e)
-                    -- No clue on how to add selectable list items right now
+                    list_element:select(e.value)
                 end}, {
                 ui.ElementList({inherit_size = "both"}, {
                     ui.Element({width = 64, height = 64}, {

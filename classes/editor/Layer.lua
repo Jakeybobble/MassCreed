@@ -3,6 +3,9 @@ local editor_handler = require("jakeylib.editor_handler")
 function class.post_load(class)
     if class.name ~= "Layer" then
         editor_handler.add(class)
+        table.sort(editor_handler, function(a,b)
+            return a.type_name < b.type_name
+        end)
     end
 end
 
