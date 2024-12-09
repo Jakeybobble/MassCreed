@@ -91,18 +91,23 @@ end
 function class:init_layer_presets(list_element)
     for k,layer_type in pairs(registered_layers) do
         local element = ui.Panel({
-            inherit_size = "width", height = 64
+            inherit_size = "width", height = 64,
         }, {
-            ui.ElementList({inherit_size = "both"}, {
-                ui.Element({width = 64, height = 64}, {
-                    --ui.Panel({width = 48, height = 48, centered=true})
-                    ui.Image:new({width=48, height=48, image="assets/bip.png", centered=true}),
-                }),
-                ui.ElementList({margins={3,3,10,0}, inherit_size="both", orientation="vertical", mode="fit"}, {
-                    ui.Text({text=layer_type.type_name, inherit_size="width", align="left"}),
-                    ui.Text({text=layer_type.desc, inherit_size="width", align="left"})
+            ui.Button({inherit_size="both",
+                click=function(e)
+                    -- No clue on how to add selectable list items right now
+                end}, {
+                ui.ElementList({inherit_size = "both"}, {
+                    ui.Element({width = 64, height = 64}, {
+                        --ui.Panel({width = 48, height = 48, centered=true})
+                        ui.Image:new({width=48, height=48, image="assets/bip.png", centered=true}),
+                    }),
+                    ui.ElementList({margins={3,3,10,0}, inherit_size="both", orientation="vertical", mode="fit"}, {
+                        ui.Text({text=layer_type.type_name, inherit_size="width", align="left"}),
+                        ui.Text({text=layer_type.desc, inherit_size="width", align="left"})
+                    })
+                    
                 })
-                
             }),
         })
 

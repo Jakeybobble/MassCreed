@@ -64,6 +64,7 @@ function class:init(options, elements)
 
     self.key = options.key or nil -- Key to be accessed from DataCapsule
     self.data_capsule = nil
+    self.value = options.value or nil
 
     self.click_passthrough = options.click_passthrough
 

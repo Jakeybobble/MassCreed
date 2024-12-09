@@ -1,6 +1,9 @@
 -- DataCapsule.lua: Will instantiate children with a key value so that those values can be accessed
 inherit("Element")
 
+-- This class might not be able to get values from elements created after this has been created.
+-- TODO: Fix that. Should be possible through Element:add_child()
+
 local function add_keys(p, elements)
     for _,child in pairs(elements) do
         if child.key then
@@ -17,6 +20,8 @@ function class:init(options, elements)
 
     self.data_elements = {}
     add_keys(self, elements)
+
+    self.ping = options.ping -- Simply a function that data capsule children may call
     
 
 end
