@@ -93,9 +93,9 @@ function class:init_layer_presets(list_element)
         local element = ui.Panel({
             inherit_size = "width", height = 64,
         }, {
-            ui.Button({inherit_size="both", value=#list_element.elements + 1,
+            ui.Button({inherit_size="both",
                 click=function(e)
-                    list_element:select(e.value)
+                    list_element:select(e.parent.list_index)
                 end}, {
                 ui.ElementList({inherit_size = "both"}, {
                     ui.Element({width = 64, height = 64}, {
