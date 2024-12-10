@@ -66,18 +66,28 @@ function class:init()
                     margins = {20},
                     centered = true,
                 }, {
-                    ui.JakeyPanel({
-                        width = 256, inherit_size="height",
-                    }, {
-                        ui.Scroll({inherit_size="both"}, {
-                            ui.ListSelectable({
-                                orientation="vertical", inherit_size="width", mode = "shrink", init_func = function(e) self:init_layer_presets(e) end,
-                                margins={6}
-                            }, {
-    
+                    ui.ElementList({inherit_size="both", orientation="horizontal", mode="fit", spacing=10}, {
+                        -- Layer type list
+                        ui.JakeyPanel({
+                            width = 256, inherit_size="height",
+                        }, {
+                            ui.Scroll({inherit_size="both"}, {
+                                ui.ListSelectable({
+                                    orientation="vertical", inherit_size="width", mode = "shrink", init_func = function(e) self:init_layer_presets(e) end,
+                                    margins={6}, key="LAYERLIST",
+                                }, {
+                                    -- Layer types go here
+                                })
                             })
+                        }),
+                        -- Layer type info
+                        ui.ElementBuilder({
+                            inherit_size="height", color={1,1,1, 0.15}, key="LAYERINFO",
+                            build_func = function(self, args)
+                                local name = args.type_name
+                                return ui.Text({inherit_size="both", text=name})
+                            end
                         })
-                        
                     })
                 })
             })
@@ -93,13 +103,14 @@ function class:init_layer_presets(list_element)
         local element = ui.Panel({
             inherit_size = "width", height = 64,
         }, {
-            ui.Button({inherit_size="both",
+            ui.Button({inherit_size="both", key="_",
                 click=function(e)
                     list_element:select(e.parent.list_index)
+                    --e.parent.data_capsule.data_elements["LAYERINFO"]:build()
+                    e.data_capsule.data_elements["LAYERINFO"]:build(layer_type)
                 end}, {
                 ui.ElementList({inherit_size = "both"}, {
                     ui.Element({width = 64, height = 64}, {
-                        --ui.Panel({width = 48, height = 48, centered=true})
                         ui.Image:new({width=48, height=48, image="assets/bip.png", centered=true}),
                     }),
                     ui.ElementList({margins={3,3,10,0}, inherit_size="both", orientation="vertical", mode="fit"}, {

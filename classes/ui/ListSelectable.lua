@@ -15,6 +15,7 @@ end
 function class:select(index) -- Run from button
     for i,v in ipairs(self.elements) do
         self.selected_element = v
+        self.value = self.selected_element
         v.selected = (index == i and true) or false
     end
 end

@@ -20,7 +20,8 @@ function class:init(options, elements)
 
     self.data_elements = {}
     add_keys(self, elements)
-    
+
+    self.ping_func = options.ping_func or nil
 
 end
 
@@ -36,4 +37,8 @@ function class:get(key)
     -- I don't know if I want to do this through a function.
     -- Considering refreshing from the input object every time the value changes.
     return self.data_elements[key].value
+end
+
+function class:ping(pinger)
+    self.ping_func(self, pinger)
 end
