@@ -46,7 +46,7 @@ function class:init()
                 }, {
                     -- 
                     ui.ColorButton({inherit_size="height", text="New Layer...", click = function(e)
-                        self:prompt_new_layer()
+                        self.new_layer_prompt.enabled = true
                     end}),
                     ui.ColorButton({inherit_size="height"})
                 })
@@ -80,14 +80,34 @@ function class:init()
                                 })
                             })
                         }),
-                        -- Layer type info
-                        ui.ElementBuilder({
-                            inherit_size="height", color={1,1,1, 0.15}, key="LAYERINFO",
-                            build_func = function(self, args)
-                                local name = args.type_name
-                                return ui.Text({inherit_size="both", text=name})
-                            end
+                        ui.ElementList({
+                            orientation="vertical", inherit_size="height"
+                        }, {
+                            -- Layer type info
+                            ui.ElementBuilder({
+                                color={1,1,1, 0.15}, key="LAYERINFO",
+                                inherit_size="width", height=360-32-20,
+                                build_func = function(self, args)
+                                    local name = args.type_name
+                                    return ui.Text({inherit_size="both", text=name})
+                                end
+                            }),
+                            ui.ElementList({
+                                orientation="horizontal", mode="fit",
+                                inherit_size="width", height=32,
+                                width=50, height=50, spacing=5,
+                            }, {
+                                ui.ColorButton({
+                                    inherit_size="height", text="Cancel", click=function(e)
+                                        self.new_layer_prompt.enabled = false
+                                    end
+                                }, {}),
+                                ui.ColorButton({
+                                    inherit_size="height", text="Create"
+                                }, {})
+                            })
                         })
+                        
                     })
                 })
             })
@@ -138,10 +158,6 @@ function class:new_layer()
     self.layers_list:add_child(new_element)
     table.insert(self.layers, new_layer)
     
-end
-
-function class:prompt_new_layer()
-    self.new_layer_prompt.enabled = true
 end
 
 function class:draw()

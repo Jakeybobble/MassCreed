@@ -25,13 +25,6 @@ function class:init(options, elements)
 
 end
 
-function class:render()
-    class.super.render(self)
-    local child = self.elements[1]
-    self.width = child.width
-    self.height = child.height
-end
-
 -- Get value by key
 function class:get(key)
     -- I don't know if I want to do this through a function.

@@ -31,7 +31,10 @@ function module.handle_click(element, depth)
         for i=1, depth do
             spaces = spaces.."  "
         end
-        print(spaces..element.name, element.width..'x'..element.height, #element.elements)
+        if spaces == "" then print("---") end
+        local str = spaces..element.name.." - "..element.width..'x'..element.height.." - "..element.global_x..","..element.global_y.." - ".."Elements: "..#element.elements
+        if element.key then str = str.." - "..element.key end
+        print(str)
     end
 
     -- Set selected input box
