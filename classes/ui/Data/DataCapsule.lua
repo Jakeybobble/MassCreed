@@ -6,9 +6,9 @@ inherit("Element")
 
 local function add_keys(p, elements)
     for _,child in pairs(elements) do
+        child.data_capsule = p -- TODO: Properly set the data capsule when data capsules can be inside data capsules
         if child.key then
             p.data_elements[child.key] = child
-            child.data_capsule = p -- Not sure if needed?
         end
         add_keys(p, child.elements)
     end
