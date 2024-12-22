@@ -23,7 +23,7 @@ function class:init(options, elements)
     end
 
     self.spacing = options.spacing or 0
-
+    
     self:refresh()
 
 end

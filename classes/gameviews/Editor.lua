@@ -21,7 +21,7 @@ function class:init()
         -- Windows
         ui.Element({inherit_size="both", click_passthrough=true}, {
             -- Layers panel
-            ui.ElementList({x = 50, y = 100, width = 200, mode="shrink", orientation = "v", frontable = true}, {
+            ui.VerticalList({x = 50, y = 100, width = 200, mode="shrink", frontable = true}, {
                 ui.DraggableArea({
                     inherit_size="width", height=32
                 }),
@@ -38,9 +38,9 @@ function class:init()
                     
                 }),
                 -- Buttons
-                ui.ElementList({
+                ui.HorizontalList({
                     inherit_size="width", height=36, spacing=5,
-                    orientation="horizontal", mode="fit",
+                    mode="fit",
                     color={0,0,0},
                     margins={5,5}
                 }, {
@@ -66,7 +66,7 @@ function class:init()
                     margins = {20},
                     centered = true,
                 }, {
-                    ui.ElementList({inherit_size="both", orientation="horizontal", mode="fit", spacing=10}, {
+                    ui.HorizontalList({inherit_size="both", mode="fit", spacing=10}, {
                         -- Layer type list
                         ui.JakeyPanel({
                             width = 256, inherit_size="height",
@@ -80,8 +80,8 @@ function class:init()
                                 })
                             })
                         }),
-                        ui.ElementList({
-                            orientation="vertical", inherit_size="height"
+                        ui.VerticalList({
+                            inherit_size="height"
                         }, {
                             -- Layer type info
                             ui.ElementBuilder({
@@ -92,8 +92,8 @@ function class:init()
                                     return ui.Text({inherit_size="both", text=name})
                                 end
                             }),
-                            ui.ElementList({
-                                orientation="horizontal", mode="fit",
+                            ui.HorizontalList({
+                                mode="fit",
                                 inherit_size="width", height=32,
                                 width=50, height=50, spacing=5,
                             }, {
@@ -129,11 +129,11 @@ function class:init_layer_presets(list_element)
                     --e.parent.data_capsule.data_elements["LAYERINFO"]:build()
                     e.data_capsule.data_elements["LAYERINFO"]:build(layer_type)
                 end}, {
-                ui.ElementList({inherit_size = "both"}, {
+                ui.HorizontalList({inherit_size = "both"}, {
                     ui.Element({width = 64, height = 64}, {
                         ui.Image:new({width=48, height=48, image="assets/bip.png", centered=true}),
                     }),
-                    ui.ElementList({margins={3,3,10,0}, inherit_size="both", orientation="vertical", mode="fit"}, {
+                    ui.VerticalList({margins={3,3,10,0}, inherit_size="both", mode="fit"}, {
                         ui.Text({text=layer_type.type_name, inherit_size="width", align="left"}),
                         ui.Text({text=layer_type.desc, inherit_size="width", align="left"})
                     })
