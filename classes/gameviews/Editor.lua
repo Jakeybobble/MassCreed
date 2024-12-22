@@ -88,8 +88,8 @@ function class:init()
                                 color={1,1,1, 0.15}, key="LAYERINFO",
                                 inherit_size="width", height=360-32-20,
                                 build_func = function(self, args)
-                                    local name = args.type_name
-                                    return ui.Text({inherit_size="both", text=name})
+                                    self.layer_type = args
+                                    return ui.Text({inherit_size="both", text=self.layer_type.type_name})
                                 end
                             }),
                             ui.HorizontalList({
@@ -103,7 +103,13 @@ function class:init()
                                     end
                                 }, {}),
                                 ui.ColorButton({
-                                    inherit_size="height", text="Create"
+                                    inherit_size="height", text="Create", click=function(e)
+                                        local layer_type = e.data_capsule.data_elements["LAYERINFO"].layer_type
+                                        self:new_layer(layer_type)
+
+                                        -- Close pop-up
+                                        self.new_layer_prompt.enabled = false
+                                    end
                                 }, {})
                             })
                         })
@@ -147,9 +153,10 @@ function class:init_layer_presets(list_element)
     end
 end
 
-function class:new_layer()
+function class:new_layer(layer_type)
     -- TODO: Add a prompt for picking what layer type to add
-    local new_layer = editor.TileMapLayer:new()
+    --local new_layer = editor.TileMapLayer:new()
+    local new_layer = layer_type:new()
     local new_element = ui.ColorButton:new({inherit_size="width", height=32, text=new_layer.name})
     new_element.layer = new_layer
 
@@ -183,9 +190,11 @@ function class:update(dt)
 end
 
 function class:keypressed(key)
+    --[[
     if key == "a" then
         self:new_layer()
     end
+    ]]
 end
 
 function class:mousepressed(x, y, button, istouch)
