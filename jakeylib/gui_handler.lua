@@ -12,6 +12,10 @@ function module.mouse_inside(element)
     return false
 end
 
+function module.update(element)
+    -- TODO: Refactor handle_click and handle_draggable into this
+end
+
 function module.handle_click(element, depth)
     
     -- IMPORTANT TODO: Update this function to return first clickable instead

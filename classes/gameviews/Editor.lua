@@ -154,8 +154,7 @@ function class:init_layer_presets(list_element)
 end
 
 function class:new_layer(layer_type)
-    -- TODO: Add a prompt for picking what layer type to add
-    --local new_layer = editor.TileMapLayer:new()
+
     local new_layer = layer_type:new()
     local new_element = ui.ColorButton:new({inherit_size="width", height=32, text=new_layer.name})
     new_element.layer = new_layer
@@ -190,11 +189,11 @@ function class:update(dt)
 end
 
 function class:keypressed(key)
-    --[[
-    if key == "a" then
-        self:new_layer()
-    end
-    ]]
+    gui_handler.keypressed(key)
+end
+
+function class:textinput(text)
+    gui_handler.textinput(text)
 end
 
 function class:mousepressed(x, y, button, istouch)
